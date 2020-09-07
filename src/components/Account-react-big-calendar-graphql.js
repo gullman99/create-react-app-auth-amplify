@@ -106,6 +106,8 @@ class MyAccount extends React.Component{
     // }]
     // console.log(sampleEvents, 'sampleEvents')
     console.log(this.state.eventsForCalendar , 'eventsForCalendar')
+    console.log(this.state.allEvents, 'all Events')
+
     return(
       <>
         {
