@@ -12,6 +12,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { listEvents as ListEvents } from '../graphql/queries'
+import { listUsers as ListUsers } from '../graphql/queries'
+
 import { userContext } from './UserContext';
 
 
@@ -21,16 +23,22 @@ const localizer = momentLocalizer(moment)
 
 var EventData1;
 var events1 = [];
+var julyFourth = [{
+  title: "Fourth of July",
+  allDay: true,
+  start: new moment("7/4/2020").toDate,
+  end: new moment("7/4/2020").toDate
+
+}];
 
 class MyAccount extends React.Component{
   state = {
-    events:[],
-    eventsForCalendar: []
+    allEvents:[],
+    filteredEvents: []
   }
 
   async  componentDidMount() {
     try {
-      //EventData1 = await API.graphql(graphqlOperation(ListEvents))
       EventData1 = await API.graphql(graphqlOperation(ListEvents, {
         filter: {
           client: {
@@ -40,10 +48,35 @@ class MyAccount extends React.Component{
       }))
       events1 = EventData1.data.listEvents.items
       console.log(events1);
-      const EventData = await API.graphql(graphqlOperation(ListEvents))
+      const allEventData = await API.graphql(graphqlOperation(ListEvents))
       
       let eventsForCalendar = []
+      let allEventsForCalendar = []
 
+      for (let i in allEventData.data.listEvents.items) {
+        let givenEvent = allEventData.data.listEvents.items[i]
+        // try{
+        //   var clientFirstName = await API.graphql(graphqlOperation(ListUsers, {
+        //   filter: {
+        //     id: {
+        //       eq: givenEvent.client
+        //     }
+        //   }
+        // }))
+        let event = {
+          title: givenEvent.client + " meeting with " + givenEvent.employee, 
+          start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
+          end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+        }
+        allEventsForCalendar.push(event)
+      //}
+      // catch(error){
+      //   console.log("failed allEventData query", givenEvent, error)
+      // }
+      }
+      
+
+            
       for (let i in EventData1.data.listEvents.items) {
         	let givenEvent = EventData1.data.listEvents.items[i]
            let event = {
@@ -56,8 +89,8 @@ class MyAccount extends React.Component{
       
       //console.log('EventData:', EventData)
       this.setState({
-        events: EventData.data.listEvents.items,
-        eventsForCalendar: eventsForCalendar
+        allEvents: allEventsForCalendar,
+        filteredEvents: eventsForCalendar
       })
     } catch (err) {
       console.log('error fetching events...', err)
@@ -76,10 +109,39 @@ class MyAccount extends React.Component{
     return(
       <>
         {
-          this.state.eventsForCalendar.length > 0 ?
+          (this.context.type === "admin" || this.context.type === "employee") ?
+          (this.state.allEvents > 0 ?
+            <Calendar
+            localizer={localizer}
+            events={this.state.allEvents}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            eventPropGetter={event => ({
+              style: {
+                backgroundColor: event.color,
+              },
+            })}
+          />  
+          :
           <Calendar
           localizer={localizer}
-          events={this.state.eventsForCalendar}
+          events={julyFourth}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+          eventPropGetter={event => ({
+            style: {
+              backgroundColor: event.color,
+            },
+          })}
+        />)
+
+        :
+          (this.state.filteredEvents.length > 0 ?
+          <Calendar
+          localizer={localizer}
+          events={this.state.filteredEvents}
           startAccessor="start"
           endAccessor="end"
           style={{ height: 500 }}
@@ -90,7 +152,18 @@ class MyAccount extends React.Component{
           })}
         />
         :
-        null
+        <Calendar
+        localizer={localizer}
+        events={julyFourth}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+        eventPropGetter={event => ({
+          style: {
+            backgroundColor: event.color,
+          },
+        })}
+      />)
         }
       {/*<table>
             <tr>
