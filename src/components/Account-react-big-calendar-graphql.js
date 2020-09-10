@@ -64,7 +64,7 @@ class MyAccount extends React.Component{
           }
         }))
         console.log(clientFirstName, i, "clientFirstName");
-        if(clientFirstName.length >= 1){
+        if(clientFirstName.length == 1){
           let event = {
             title: clientFirstName.data.listUsers.items[0].firstName + " meeting with " + givenEvent.employee, 
             start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
