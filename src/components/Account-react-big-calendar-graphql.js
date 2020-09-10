@@ -112,7 +112,7 @@ class MyAccount extends React.Component{
       <>
         {
           (this.context.type === "admin" || this.context.type === "employee") ?
-          (this.state.allEvents > 0 ?
+          (this.state.allEvents.length > 0 ?
             <Calendar
             localizer={localizer}
             events={this.state.allEvents}
