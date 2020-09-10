@@ -55,24 +55,26 @@ class MyAccount extends React.Component{
 
       for (let i in allEventData.data.listEvents.items) {
         let givenEvent = allEventData.data.listEvents.items[i]
-        // try{
-        //   var clientFirstName = await API.graphql(graphqlOperation(ListUsers, {
-        //   filter: {
-        //     id: {
-        //       eq: givenEvent.client
-        //     }
-        //   }
-        // }))
-        let event = {
-          title: givenEvent.client + " meeting with " + givenEvent.employee, 
-          start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
-          end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+        try{
+          var clientFirstName = await API.graphql(graphqlOperation(ListUsers, {
+          filter: {
+            id: {
+              eq: givenEvent.client
+            }
+          }
+        }))
+        if(clientFirstName.length >= 1){
+          let event = {
+            title: clientFirstName.data.listUsers.items[0].firstName + " meeting with " + givenEvent.employee, 
+            start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
+            end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+          }
+          allEventsForCalendar.push(event)
         }
-        allEventsForCalendar.push(event)
-      //}
-      // catch(error){
-      //   console.log("failed allEventData query", givenEvent, error)
-      // }
+      }
+      catch(error){
+        console.log("failed allEventData query", givenEvent, error)
+      }
       }
       
 
