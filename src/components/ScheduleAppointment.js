@@ -39,19 +39,53 @@ class ScheduleAppointment extends React.Component {
       const { client, employee, service, date, startTime, endTime, color } = this.state
       if ( client === '' || date === '' || startTime === '' || endTime === '' ) return
   
-      const event = { client: clientId, employee, service, date, startTime, endTime, color }
+      var event = { client: clientId, employee, service, date, startTime, endTime, color }
       //const users = [...this.state.users, user]
       this.setState({
         client: clientId, employee: '', service: '', date: '', startTime: '', endTime: '', color:''
       })
-  
+
+      //query for employee from database
+      try{
+        const employeeData = await API.graphql(graphqlOperation(ListUsers, {
+          filter: {
+            employee: {
+              eq: this.state.employee
+            }
+          }
+        }))
+        if(employeeData.length >= 1){
+          try {
+            event = {employee: employeeData.id}
+            await API.graphql(graphqlOperation(CreateEvent, { input: event }))
+            console.log('item created!')
+            this.props.history.push('/Account');
+          } catch (err) {
+            console.log('error creating event...', err)
+            this.props.history.push('/Appointment');
+            alert("Oops something went wrong", err);
+          }
+        }
+        else{
+          alert("Please enter an employee name that exists in our database");
+          this.props.history.push('/Appointment');
+        }
+      }
+      catch(err){
+        console.log('error fetching Users', err);
+        alert("Oops something went wrong", err);
+        this.props.history.push('/Appointment');
+      }
+
+      //create event
       try {
         await API.graphql(graphqlOperation(CreateEvent, { input: event }))
         console.log('item created!')
+        this.props.history.push('/Account');
       } catch (err) {
         console.log('error creating event...', err)
+        this.props.history.push('/Appointment');
       }
-      this.props.history.push('/Account');
       //testconnection();
     }
     onChange = (event) => {
