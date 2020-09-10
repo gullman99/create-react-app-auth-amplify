@@ -47,11 +47,14 @@ class ScheduleAppointment extends React.Component {
 
       //query for employee from database
       try{
+        //figure out how to filter two things filter for firstname = this.state.employee and type = employee
+        //https://stackoverflow.com/questions/60853978/how-to-filter-list-queries-with-and-or-operators-aws-amplify-javascript-graphql
         const employeeData = await API.graphql(graphqlOperation(ListUsers, {
           filter: {
-            employee: {
+            firstName: {
               eq: this.state.employee
             }
+
           }
         }))
         if(employeeData.length >= 1){
