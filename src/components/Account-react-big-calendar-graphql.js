@@ -63,6 +63,7 @@ class MyAccount extends React.Component{
             }
           }
         }))
+        console.log(clientFirstName, i, "clientFirstName");
         if(clientFirstName.length >= 1){
           let event = {
             title: clientFirstName.data.listUsers.items[0].firstName + " meeting with " + givenEvent.employee, 
@@ -107,7 +108,7 @@ class MyAccount extends React.Component{
     //   end: moment("8/20/2020" + " " + "6:40 pm").toDate(),
     // }]
     // console.log(sampleEvents, 'sampleEvents')
-    console.log(this.state.eventsForCalendar , 'eventsForCalendar')
+    console.log(this.state.filteredEvents , 'filteredEvents')
     console.log(this.state.allEvents, 'all Events')
 
     return(
