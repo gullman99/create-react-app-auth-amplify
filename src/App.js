@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, Redirect} from 'react-router-dom'
-import { Home, About, Contact, Services, Jobs, Volunteer, Search, SignUp, Account, UserList, Admin, Appointment, EditEventAvailability, AvailabilityCalendar } from './components/index'
+import { Home, About, Contact, Services, Jobs, Volunteer, Search, SignUp, Account, UserList, Admin, Appointment, EditEventAvailability, AvailabilityCalendar, EventList } from './components/index'
 import { userContext } from './components/UserContext';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { listUsers as ListUsers } from './graphql/queries'
@@ -110,6 +110,8 @@ class App extends React.Component {
             
             <Route path="/admin" render={() => this.state.type === 'admin' ?
             <Admin setUser={this.setUser}/> : <Redirect to="/" />} />
+            <Route path="/admin-events" render={() => this.state.type === 'admin' ?
+            <EventList setUser={this.setUser}/> : <Redirect to="/" />} />
             
           
           

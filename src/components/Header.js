@@ -159,7 +159,7 @@ class Header extends React.Component{
                     <MenuLink as="a" href="/account">
                       Calendar
                     </MenuLink>
-                    <MenuLink as="a" href="/manageschedules">
+                    <MenuLink as="a" href="/admin-events">
                       Manage Schedules
                     </MenuLink>
                     <MenuLink as="a" href="/admin">
