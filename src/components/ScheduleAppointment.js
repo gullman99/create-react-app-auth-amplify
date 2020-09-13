@@ -4,6 +4,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createEvent as CreateEvent } from '../graphql/mutations'
 import { Link, withRouter } from 'react-router-dom'
 import { userContext } from './UserContext';
+import * as queries from './graphql/queries';
 
 
 class ScheduleAppointment extends React.Component {
@@ -50,13 +51,19 @@ class ScheduleAppointment extends React.Component {
         //figure out how to filter two things filter for firstname = this.state.employee and type = employee
         //https://stackoverflow.com/questions/60853978/how-to-filter-list-queries-with-and-or-operators-aws-amplify-javascript-graphql
         const employeeData = await API.graphql(graphqlOperation(ListUsers, {
-          filter: {
-            firstName: {
+          filter: 
+          {AND: [
+            {firstName: {
               eq: this.state.employee
-            }
-
-          }
+            }},
+            
+            {type: {
+              eq: 'employee'
+            }}
+          ]}
         }))
+        //const employeeData = await API.graphql(graphqlOperations(queries.))
+
         if(employeeData.length >= 1){
           try {
             event = {employee: employeeData.id}
