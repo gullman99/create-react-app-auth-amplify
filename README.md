@@ -1,14 +1,13 @@
-# St.Lorraine
+# St. Lorraine
 ## This is the official respository for the app. "St. Lorraine" repo is deprecated
 
 create-react-app-auth-amplify is the repository that is live on this domain
 https://master.d12a3k5j6x4df1.amplifyapp.com/
 
-The St. Lorraine Website uses a few AWS services
-
-AWS Amplify hosting graphql API Auth
-AWS DynamoDB contains the User, Event, and EventAvailability tables
-AWS Cognito is used for Authentication
+### The St. Lorraine Website uses a few AWS services
+- AWS Amplify hosting graphql API Auth
+- AWS DynamoDB contains the User, Event, and EventAvailability tables
+- AWS Cognito is used for Authentication
 
 
 
