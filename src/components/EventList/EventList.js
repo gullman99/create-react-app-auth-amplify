@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../Header';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listUsers as ListUsers } from '../graphql/queries'
-import { listEvents as ListEvents } from '../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
+import { listEvents as ListEvents } from '../../graphql/queries'
 
 
 class EventList extends React.Component {
@@ -27,7 +27,7 @@ class EventList extends React.Component {
   render() {
     return (
       <>
-        <Header setUser={this.props.setUser}/>
+        {/* <Header setUser={this.props.setUser}/> */}
         <table>
             <tr>
               <th>Client Id</th>

@@ -5,14 +5,14 @@ import { API, graphqlOperation, Auth } from 'aws-amplify'
 // import uuid to create a unique client ID
 //import uuid from 'uuid/v4'
 
-import { listUsers as ListUsers } from '../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
 // import the mutation
-import { createUser as CreateUser } from '../graphql/mutations'
+import { createUser as CreateUser } from '../../graphql/mutations'
 import { Link, withRouter } from 'react-router-dom'
 import {Field, Formik, Form} from "formik"
 import TextField from '@material-ui/core/TextField';
 import { Button }  from '@material-ui/core'
-import { userContext } from './UserContext';
+import { userContext } from '../../context/UserContext';
 
 //const CLIENT_ID = uuid()
 // function SignUpGraphQLRedux(username){

@@ -1,8 +1,24 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, Redirect} from 'react-router-dom'
-import { Home, About, Contact, Services, Jobs, Volunteer, Search, SignUp, Account, UserList, Admin, Appointment, EditEventAvailability, AvailabilityCalendar, EventList } from './components/index'
-import { userContext } from './components/UserContext';
+import { 
+  Home, 
+  About, 
+  Contact, 
+  Services, 
+  Jobs, 
+  Volunteer, 
+  Search, 
+  SignUp, 
+  Account, 
+  UserList, 
+  Admin, 
+  Appointment, 
+  EditEventAvailability, 
+  AvailabilityCalendar, 
+  EventList, Header
+ } from './components/index'
+import { userContext } from './context/UserContext';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { listUsers as ListUsers } from './graphql/queries'
 import { CircularProgress }  from '@material-ui/core'
@@ -79,73 +95,77 @@ class App extends React.Component {
     };
   
     render() {
-      return(
-        <React.Fragment>
-        <userContext.Provider value={this.state}>
-          {this.state.loading == true ? 
-            <CircularProgress />
-          :
-          <Switch>
-            <Route path="/" render={() => <Home setUser={this.setUser}/>} exact />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/services" component={Services} />
-            <Route path="/jobs" component={Jobs} />
-            <Route path="/volunteer" component={Volunteer} />
-            <Route path="/search" component={Search} />
-            <Route path="/signup" render={() => <SignUp setUser={this.setUser}/>} />
-            {//Account page doesn't refresh, so it doesn't need to be changed//
-            }
-            <Route path="/account" render={() => {
-              switch(this.state.type){
-              case 'client': return <Account setUser={this.setUser}/>;
-              case 'admin' : return <Account setUser={this.setUser}/>;
-              case 'employee' : return <Account setUser={this.setUser}/>;
-              default: return <Redirect to="/" />;
-            }
-          }} />
-              
-            {//<Route path="/userlist" component={UserList} />
-            }
-            
-            <Route path="/admin" render={() => this.state.type === 'admin' ?
-            <Admin setUser={this.setUser}/> : <Redirect to="/" />} />
-            <Route path="/admin-events" render={() => this.state.type === 'admin' ?
-            <EventList setUser={this.setUser}/> : <Redirect to="/" />} />
-            
-          
-          
-          {//<Route path="/admin" render={() => <Admin setUser={this.setUser}/>} />
-          }
-          {//Appointment is refreshing causing bugs
-          }
-           <Route path="/appointment" render={() => {
-            switch(this.state.type){
-              case 'client': return <Appointment setUser={this.setUser}/>;
-              case 'admin' : return <Appointment setUser={this.setUser}/>;
-              case 'employee' : return <Appointment setUser={this.setUser}/>;
-              default: return <Redirect to="/" />;
-            }
-          }} 
-        />
+        return(
+            <React.Fragment>
+            <userContext.Provider value={this.state}>
+            {this.state.loading == true ? 
+                <CircularProgress />
+            :
+                <div>
+                    <Header />
+                    <Switch>
+                        <Route path="/" render={() => <Home setUser={this.setUser}/>} exact />
+                        <Route path="/about" component={About} />
+                        <Route path="/contact" component={Contact} />
+                        <Route path="/services" component={Services} />
+                        <Route path="/jobs" component={Jobs} />
+                        <Route path="/volunteer" component={Volunteer} />
+                        <Route path="/search" component={Search} />
+                        <Route path="/signup" render={() => <SignUp setUser={this.setUser}/>} />
+                        {//Account page doesn't refresh, so it doesn't need to be changed//
+                        }
+                        <Route path="/account" render={() => {
+                            switch(this.state.type){
+                                case 'client': return <Account setUser={this.setUser}/>;
+                                case 'admin' : return <Account setUser={this.setUser}/>;
+                                case 'employee' : return <Account setUser={this.setUser}/>;
+                                default: return <Redirect to="/" />;
+                            }
+                        }} />
+                        
+                        {//<Route path="/userlist" component={UserList} />
+                        }
+                        
+                        <Route path="/admin" render={() => this.state.type === 'admin' ?
+                        <Admin setUser={this.setUser}/> : <Redirect to="/" />} />
+                        <Route path="/admin-events" render={() => this.state.type === 'admin' ?
+                        <EventList setUser={this.setUser}/> : <Redirect to="/" />} />
+                        
+                    
+                    
+                        {//<Route path="/admin" render={() => <Admin setUser={this.setUser}/>} />
+                        }
+                        {//Appointment is refreshing causing bugs
+                        }
+                        <Route path="/appointment" render={() => {
+                            switch(this.state.type){
+                            case 'client': return <Appointment setUser={this.setUser}/>;
+                            case 'admin' : return <Appointment setUser={this.setUser}/>;
+                            case 'employee' : return <Appointment setUser={this.setUser}/>;
+                            default: return <Redirect to="/" />;
+                            }
+                        }} 
+                        />
 
-            {//<Route path="/appointment" render={() => <Appointment setUser={this.setUser}/>} />
+                        {//<Route path="/appointment" render={() => <Appointment setUser={this.setUser}/>} />
+                        }
+                        {//availability is refreshing causing bugs
+                        }
+                        <Route path="/availability" render= {() =>
+                        //() => (this.state.type === 'employee') ?
+                        <EditEventAvailability setUser={this.setUser}/>
+                        // : <Redirect to="/" />}
+                        }/>
+                        <Route path="availability-calendar" render = {() =>
+                        <AvailabilityCalendar setUser={this.setUser} />
+                        } />
+                    </Switch>
+                </div>
+            
             }
-            {//availability is refreshing causing bugs
-            }
-            <Route path="/availability" render= {() =>
-            //() => (this.state.type === 'employee') ?
-            <EditEventAvailability setUser={this.setUser}/>
-            // : <Redirect to="/" />}
-            }/>
-            <Route path="availability-calendar" render = {() =>
-            <AvailabilityCalendar setUser={this.setUser} />
-            } />
-            </Switch>
-          }
-        </userContext.Provider>
-        </React.Fragment>
-      );
+            </userContext.Provider>
+            </React.Fragment>
+        );
     }
 }
 export default App;

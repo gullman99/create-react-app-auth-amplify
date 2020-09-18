@@ -1,9 +1,9 @@
 
 import React from 'react';
-import '../App.css'
+import '../../App.css'
 import { Link, withRouter } from 'react-router-dom'
 import {  API, graphqlOperation, Auth} from 'aws-amplify';
-import { listUsers as ListUsers } from '../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
 
 // async function signIn() {
 //     try {

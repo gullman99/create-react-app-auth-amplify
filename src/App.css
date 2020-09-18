@@ -111,6 +111,11 @@ ul#horizontal-list li {
 
 } 
 
+.header-link {
+  text-decoration: none;
+  color: black;
+}
+
 /* Clearfix (clear floats) */
 .row::after {
   content: "";
@@ -140,10 +145,11 @@ background-color: #ffffff;
 }
 
 .background-image{
-    background-image: url("caregiver_1280_squished.jpg");
-    background-repeat: no-repeat;
+  height: '100%';
+    background-image: url("./img/caregiver_1280_squished.jpg");
+/*     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: 50% 80%;
+    background-position: 50% 80%; */
     background-size: cover
 }
 /*

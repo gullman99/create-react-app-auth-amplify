@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../Header';
 import SignUpLogic from './SignUpLogic'
 import SignUpGraphQL from './Sign Up-graphql'
-import { userContext } from './UserContext';
+import { userContext } from '../../context/UserContext';
 
 import { render } from '@testing-library/react';
 
@@ -24,7 +24,7 @@ class SignUp extends React.Component {
         
         return(
             <div>
-                <Header setUser={this.props.setUser}/>
+                {/* <Header setUser={this.props.setUser}/> */}
                 <SignUpGraphQL setUser={this.props.setUser} />
             </div>
         );

@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-const userContext = React.createContext({
+export const userContext = React.createContext({
     firstName: 'Account',
     lastName: '',
     id: '',
@@ -12,7 +11,3 @@ const userContext = React.createContext({
     address: '',
     //setUser:  () => {},
 });
-
-export {
-    userContext // Export it so it can be used by other Components
-  };

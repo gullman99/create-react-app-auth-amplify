@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listUsers as ListUsers } from '../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
 
 class UserList extends React.Component {
 
