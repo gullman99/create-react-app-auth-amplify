@@ -46,42 +46,42 @@ class Header extends React.Component{
     <div style={{position: 'relative', zIndex: 10}}>
       <header style={{boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.75)', zIndex: 10}}>
         <Grid container justify="center" alignItems="center" style={{padding: 10, paddingLeft: 40, paddingRight: 40}}>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', paddingRight: 20}}>
             <Button>
               <Link to="/">
                 <img src="logo-notext.jpeg" alt="logo" width="50" height="50" />
               </Link>
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', padding: 10}}>
             <Button>
               <Link to="/contact" className={"header-link"}>
                 Contact Us
               </Link>
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', padding: 10}}>
             <Button>
               <Link to="/about" className={"header-link"}>
                 About Us
               </Link>
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', padding: 10}}>
             <Button>
               <Link to="/services" className={"header-link"}>
                 Services
               </Link>
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', padding: 10}}>
             <Button>
               <Link to="/jobs" className={"header-link"}>
                 Jobs
               </Link>
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item style={{width: 'auto', padding: 10}}>
             <Button>
               <Link to="/volunteer" className={"header-link"}>
                 Volunteer
