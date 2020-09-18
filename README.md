@@ -1,5 +1,5 @@
-#St.Lorraine
-##This is the official respository for the app. "St. Lorraine" repo is deprecated
+# St.Lorraine
+## This is the official respository for the app. "St. Lorraine" repo is deprecated
 
 create-react-app-auth-amplify is the repository that is live on this domain
 https://master.d12a3k5j6x4df1.amplifyapp.com/
