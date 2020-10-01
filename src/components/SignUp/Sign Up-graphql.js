@@ -11,7 +11,7 @@ import { createUser as CreateUser } from '../../graphql/mutations'
 import { Link, withRouter } from 'react-router-dom'
 import {Field, Formik, Form} from "formik"
 import TextField from '@material-ui/core/TextField';
-import { Button }  from '@material-ui/core'
+import { Button, Paper, Typography }  from '@material-ui/core'
 import { userContext } from '../../context/UserContext';
 
 //const CLIENT_ID = uuid()
@@ -135,94 +135,106 @@ class SignUpGraphQL extends React.Component {
   render() {
     //const {user} = this.context;
     return (
+      <Paper elevation={3} style={{padding: 30}}>
         <Formik
-        initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            cellphone: "",
-            address: ""
-        }}
-        onSubmit={(values, { setSubmitting}) =>{
-          setTimeout(() => {
-            setSubmitting(false);
-            alert(JSON.stringify(values, null, 2));
-          }, 500);
-          this.setState(values)
-          this.setState({
-            cellphone: this.formatPhoneNumber(this.state.cellphone)
-          })
-          console.log(this.state)
-          this.createUser()
-          this.handleSubmit()
-        }}>
+          initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+              cellphone: "",
+              address: ""
+          }}
+          onSubmit={(values, { setSubmitting}) =>{
+            setTimeout(() => {
+              setSubmitting(false);
+              alert(JSON.stringify(values, null, 2));
+            }, 500);
+            this.setState(values)
+            this.setState({
+              cellphone: this.formatPhoneNumber(this.state.cellphone)
+            })
+            console.log(this.state)
+            this.createUser()
+            this.handleSubmit()
+          }}
+        >
           {({ values, isSubmitting }) => (
-          <Form>
-          <h1>Sign Up</h1>
-          <Field
-            as={TextField}
-            name={"firstName"}
-            type="input"
-            required={true}
-            label="First Name"
-            value = {values.firstName}
-          /><br></br>
-          <Field
-            as={TextField}
-            name={"lastName"}
-            required={true}
-            type="input"
-            label="Last Name"
-            value = {values.lastName}
-          /><br></br>
-          <Field
-            as={TextField}
-            name={"email"}
-            required={true}
-            type="email"
-            label=" Email"
-            value = {values.email}
-          /><br></br>
-          <Field
-            as={TextField}
-            name={"password"}
-            required={true}
-            type="password"
-            InputProps={{ inputProps: { minlength: 8} }}          
-            label="Password"
-            value = {values.password}
-          /><br></br>
-          <Field
-            as={TextField}
-            name={"cellphone"}     
-            required={true}
-            InputProps={{ inputProps: { minlength: 10, maxlength:10 } }}
-            type="tel"
-            label="Cellphone"
-            value = {values.cellphone}
-          /><br></br>
-          <Field
-            as={TextField}
-            name={"address"}
-            required={true}
-            type="input"
-            label="Address"
-            value = {values.address}
-          /><br></br>
+          <Form style={{width: 'auto'}}>
+            <Typography variant="h4">
+              Sign up
+            </Typography>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"firstName"}
+              type="input"
+              required={true}
+              label="First Name"
+              value = {values.firstName}
+            /><br></br>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"lastName"}
+              required={true}
+              type="input"
+              label="Last Name"
+              value = {values.lastName}
+            /><br></br>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"email"}
+              required={true}
+              type="email"
+              label=" Email"
+              value = {values.email}
+            /><br></br>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"password"}
+              required={true}
+              type="password"
+              InputProps={{ inputProps: { minlength: 8} }}          
+              label="Password"
+              value = {values.password}
+            /><br></br>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"cellphone"}     
+              required={true}
+              InputProps={{ inputProps: { minlength: 10, maxlength:10 } }}
+              type="tel"
+              label="Cellphone"
+              value = {values.cellphone}
+            /><br></br>
+            <Field
+              className="signUpField"
+              as={TextField}
+              name={"address"}
+              required={true}
+              type="input"
+              label="Address"
+              value = {values.address}
+            /><br></br>
 
 
-          <br />
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            type="submit"
-          >
-            Create My Account
-            </Button>
+            <br />
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+              type="submit"
+            >
+              Create My Account
+              </Button>
           </Form>)}
         </Formik>
+      </Paper>
+        
         /* <form onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
             <label>

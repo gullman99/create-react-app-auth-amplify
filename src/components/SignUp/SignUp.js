@@ -23,7 +23,7 @@ class SignUp extends React.Component {
 
         
         return(
-            <div>
+            <div style={{height: '100%', display: 'grid', placeItems: 'center center'}}>
                 {/* <Header setUser={this.props.setUser}/> */}
                 <SignUpGraphQL setUser={this.props.setUser} />
             </div>

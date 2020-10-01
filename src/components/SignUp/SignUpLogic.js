@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../App.css'
 import { Link, withRouter } from 'react-router-dom'
+import { Paper, Typography } from '@material-ui/core';
 
 
 
@@ -93,8 +94,10 @@ class SignUpLogic extends React.Component {
 
   render() {
     return (
-      <div>
-          <h1>Sign Up</h1>
+      <Paper style={{padding: 30}}>
+          <Typography variant="h1">
+            Sign Up
+          </Typography>
           <form onSubmit={this.handleSubmit}>
             <label>
               First Name:
@@ -147,7 +150,7 @@ class SignUpLogic extends React.Component {
             <br></br>
               <input type="submit" value="Next" />
           </form>
-        </div>
+        </Paper>
     );
   }
 }

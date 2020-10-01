@@ -5,7 +5,7 @@ import Login from './Login'
 
 
   const Home = (props) => (
-    <div >
+    <div style={{height: '100%'}}>
     {/* <Header setUser={props.setUser} />  */}   
       <div class="background-image">
         <div style={{padding: 40}}>
@@ -17,19 +17,7 @@ import Login from './Login'
           <h2>  Thank you St. Lorraine!"</h2>
         </div>
 
-        <br></br>
-        <br></br>
         <Login setUser={props.setUser}/>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </div>
     </div>
   );

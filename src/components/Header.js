@@ -43,8 +43,8 @@ class Header extends React.Component{
 
   render (){
     return(
-    <div style={{position: 'relative', zIndex: 10}}>
-      <header style={{boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.75)', zIndex: 10}}>
+    <div style={{position: 'relative', zIndex: 1}}>
+      <header style={{boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.75)'}}>
         <Grid container justify="center" alignItems="center" style={{padding: 10, paddingLeft: 40, paddingRight: 40}}>
           <Grid item style={{width: 'auto', paddingRight: 20}}>
             <Button>
@@ -89,8 +89,8 @@ class Header extends React.Component{
             </Button>
           </Grid>
           <Grid item xs container justify="flex-end">
-            <Menu>
-                <MenuButton class="dropbtn">
+            <Menu >
+                <MenuButton className="dropbtn">
                   {this.context.firstName} <span aria-hidden>▾</span>
                 </MenuButton>
                   
@@ -148,39 +148,39 @@ class Header extends React.Component{
                   }
                 */}
                 { (this.context.type ==='client') ? 
-                  <MenuList>
-                  <MenuLink as="a" href="/account">
-                    Calendar
-                  </MenuLink>
-                    <MenuLink as="a" href="/appointment">
-                    Schedule Appointment
-                  </MenuLink>
-                  <MenuLink as="a" href="/careprovider">
-                    Care Provider
-                  </MenuLink>
-                  <MenuLink onClick={this.Logout} as="a" href="/"> 
-                    Log Out
-                  </MenuLink>
+                  <MenuList class="menuList">
+                    <MenuLink as="a" href="/account">
+                      Calendar
+                    </MenuLink>
+                      <MenuLink as="a" href="/appointment">
+                      Schedule Appointment
+                    </MenuLink>
+                    <MenuLink as="a" href="/careprovider">
+                      Care Provider
+                    </MenuLink>
+                    <MenuLink onClick={this.Logout} as="a" href="/"> 
+                      Log Out
+                    </MenuLink>
                   </MenuList>              
                   :
                 ((this.context.type === 'employee') ?
-                  <MenuList>
-                  <MenuLink as="a" href="/account">
-                    Calendar
-                  </MenuLink>  
-                  <MenuLink as="a" href="/availability">
-                  Edit Availibility
-                  </MenuLink>
-                  <MenuLink as="a" href="/editbio">
-                  Edit Bio
-                  </MenuLink>
-                  <MenuLink onClick={this.Logout} as="a" href="/"> 
-                  Log Out
-                  </MenuLink> 
+                  <MenuList class="menuList">
+                    <MenuLink as="a" href="/account">
+                      Calendar
+                    </MenuLink>  
+                    <MenuLink as="a" href="/availability">
+                    Edit Availibility
+                    </MenuLink>
+                    <MenuLink as="a" href="/editbio">
+                    Edit Bio
+                    </MenuLink>
+                    <MenuLink onClick={this.Logout} as="a" href="/"> 
+                    Log Out
+                    </MenuLink> 
                   </MenuList>
                 :
                 ((this.context.type === 'admin') ?
-                  <MenuList>
+                  <MenuList class="menuList">
                       <MenuLink as="a" href="/account">
                         Calendar
                       </MenuLink>
@@ -195,13 +195,13 @@ class Header extends React.Component{
                       </MenuLink>
                   </MenuList>
                 : 
-                  <MenuList>
-                  <MenuLink as="a" href="/signup">
-                    Sign Up
-                  </MenuLink>
-                  <MenuLink as="a" href="/">
-                    Log In
-                  </MenuLink>
+                  <MenuList class="menuList">
+                    <MenuLink as="a" href="/signup">
+                      Sign Up
+                    </MenuLink>
+                    <MenuLink as="a" href="/">
+                      Log In
+                    </MenuLink>
                   </MenuList>              
                 ))
                 }
