@@ -1,6 +1,5 @@
 
 import React from 'react';
-import Header from './Header';
 import { Dimensions, View } from 'react-native';
 import EventCalendar from 'react-native-events-calendar'
 
@@ -23,7 +22,6 @@ const events = [
 
 const Account = () => (
     <div>
-        <Header />
         <EventCalendar
       events={events}
       width={width}

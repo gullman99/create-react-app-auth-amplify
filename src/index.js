@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Amplify from 'aws-amplify'
 import config from './aws-exports'
 import {createStore} from 'redux'
-import {userReducer} from './components/Redux'
+import {userReducer} from './store/Redux'
 import {Provider} from 'react-redux'
 
 Amplify.configure(config)

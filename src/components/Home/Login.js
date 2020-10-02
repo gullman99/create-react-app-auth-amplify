@@ -1,9 +1,10 @@
 
 import React from 'react';
-import '../App.css'
+import '../../App.css'
 import { Link, withRouter } from 'react-router-dom'
 import {  API, graphqlOperation, Auth} from 'aws-amplify';
-import { listUsers as ListUsers } from '../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
+import { Button, Grid, Paper, TextField } from '@material-ui/core';
 
 // async function signIn() {
 //     try {
@@ -78,23 +79,45 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div class ="row">
-        <div class ="column-8-right">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Email: 
-              <input type="email" value={this.state.email} onChange={this.handleEmailChange} />        </label>
-            <br></br>
-            <label>
-                Password: 
-                <input type="password" value={this.state.password} onChange={this.handlePasswordChange} /> 
-            </label>
-            <br></br>
-              <input type="submit" value="Log in" />
-              <Link to="/signup"><input type="submit" value="Sign Up" /></Link>
-          </form>
+        <div className="row">
+          <div className="column-8-right">
+            <Paper style={{padding: 30}}>
+                  <TextField
+                    label="Email"
+                    variant="outlined" 
+                    type="email" 
+                    value={this.state.email} 
+                    onChange={this.handleEmailChange}
+                    style={{width: 250}}
+                  />
+                <br></br>
+                  <TextField
+                    label="Password"
+                    variant="outlined" 
+                    type="password" 
+                    value={this.state.password} 
+                    onChange={this.handlePasswordChange}
+                    style={{width: 250, marginTop: 15}}
+                  />
+                
+                <Grid container spacing={2} style={{marginTop: 15}}>
+                  <Grid item style={{width: 'auto'}}>
+                    <Button variant="contained" onClick={this.handleSubmit}>
+                      Log in
+                    </Button>
+                  </Grid>
+                  <Grid item xs>
+                    <Link to="/signup" style={{textDecoration: 'none'}}>
+                      <Button variant="contained">
+                        Sign up
+                      </Button>
+                    </Link>
+                  </Grid>
+                </Grid>
+            </Paper>
+          </div>
         </div>
-      </div>
+
     );
   }
 }

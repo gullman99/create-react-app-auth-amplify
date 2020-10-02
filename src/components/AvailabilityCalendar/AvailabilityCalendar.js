@@ -1,18 +1,18 @@
 //This is off by one month dates entered with event(2020, 5, 2) show up in june 2 2020
 
 import React from 'react';
-import Header from './Header';
+import Header from '../Header';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 //import globalize from 'globalize'
 
-import UserList from './UserList'
-import events from './events' 
+import UserList from '../Admin/UserList'
+import events from '../Account/events' 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listEventAvailabilitys as ListEventAvailabilitys } from '../graphql/queries'
-import { userContext } from './UserContext';
+import { listEventAvailabilitys as ListEventAvailabilitys } from '../../graphql/queries'
+import { userContext } from '../../context/UserContext';
 
 
 
@@ -75,7 +75,7 @@ class AvailabilityCalendar extends React.Component{
     console.log(this.state.eventsForCalendar , 'eventsForCalendar')
     return(
       <>
-        <Header setUser={this.props.setUser}/>
+        {/* <Header setUser={this.props.setUser}/> */}
 
         {
           this.state.eventsForCalendar.length > 0 ?

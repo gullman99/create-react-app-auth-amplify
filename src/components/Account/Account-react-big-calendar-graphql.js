@@ -1,20 +1,20 @@
 //This is off by one month dates entered with event(2020, 5, 2) show up in june 2 2020
 
 import React from 'react';
-import Header from './Header';
+import Header from '../Header';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 //import globalize from 'globalize'
 
-import UserList from './UserList'
+import UserList from '../Admin/UserList'
 import events from './events' 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listEvents as ListEvents } from '../graphql/queries'
-import { listUsers as ListUsers } from '../graphql/queries'
+import { listEvents as ListEvents } from '../../graphql/queries'
+import { listUsers as ListUsers } from '../../graphql/queries'
 
-import { userContext } from './UserContext';
+import { userContext } from '../../context/UserContext';
 
 
 
@@ -230,7 +230,7 @@ MyAccount.contextType= userContext;
 
 const Account = (props) => (
     <>
-        <Header setUser={props.setUser}/>
+        {/* <Header setUser={props.setUser}/> */}
         {//<MyCalendar />
         }
         <MyAccount />

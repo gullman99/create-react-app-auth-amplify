@@ -1,18 +1,25 @@
+
+
+
 import React from 'react';
-import Header from './Header';
+import Header from '../Header';
 import { API, graphqlOperation } from 'aws-amplify'
-import { createEvent as CreateEvent } from '../graphql/mutations'
+import { createEvent as CreateEvent } from '../../graphql/mutations'
+import { createEventAvailability as CreateEventAvailability } from '../../graphql/mutations'
+
+import moment from 'moment'
+
 import { Link, withRouter } from 'react-router-dom'
-import { userContext } from './UserContext';
+import { userContext } from '../../context/UserContext';
 
 
-class ScheduleAppointment extends React.Component {
+class EditEventAvailability extends React.Component {
     // define some state to hold the data returned from the API
     static contextType = userContext;
 
    
     state = {
-      client: this.context.id, employee: '', service: '', date: '', startTime: '', endTime: '', color:''
+      employeeId: this.context.id, date: '', startTime: '', endTime: ''
     }
     handleSubmit = (event) => {
   
@@ -33,25 +40,36 @@ class ScheduleAppointment extends React.Component {
         console.log('error fetching users...', err)
       }
     }*/
-    createEvent = async() => {
-      var clientId = this.context.id;
-
-      const { client, employee, service, date, startTime, endTime, color } = this.state
-      if ( client === '' || date === '' || startTime === '' || endTime === '' ) return
-  
-      const event = { client: clientId, employee, service, date, startTime, endTime, color }
+    createEvent = async(event) => {
+      //var employeeId = this.context.id;
+      event.preventDefault();
+      const { employeeId, date, startTime, endTime} = this.state
+      if ( employeeId === ''|| date === '' || startTime === '' || endTime === '' ) return
+      console.log(startTime, endTime, "startTime endTime")
+      var eventAvailability = { employeeId: this.context.id, date, startTime, endTime}
+      const dateToIso = moment(eventAvailability.date).toISOString();
+      const startTimeToIso = moment(eventAvailability.startTime, "HH:mm A").toISOString();
+      const endTimeToIso = moment(eventAvailability.endTime, "HH:mm A").toISOString();
       //const users = [...this.state.users, user]
+      eventAvailability = {
+          date: dateToIso,
+          startTime: startTimeToIso,
+          endTime: endTimeToIso
+      }
       this.setState({
-        client: clientId, employee: '', service: '', date: '', startTime: '', endTime: '', color:''
+        employeeId: employeeId,  date: '', startTime: '', endTime: ''
       })
+      console.log(eventAvailability)
   
       try {
-        await API.graphql(graphqlOperation(CreateEvent, { input: event }))
+
+        await API.graphql(graphqlOperation(CreateEventAvailability, { input: eventAvailability }))
         console.log('item created!')
+
       } catch (err) {
         console.log('error creating event...', err)
       }
-      this.props.history.push('/Account');
+      this.props.history.push('/availability');
       //testconnection();
     }
     onChange = (event) => {
@@ -62,8 +80,9 @@ class ScheduleAppointment extends React.Component {
     render() {
       return (
         <>
+          {/* <Header setUser={this.props.setUser}/> */}
           <div>
-          <form onSubmit={this.handleSubmit}>
+          <form action="#" onSubmit={this.createEvent}>
             <h1>Schedule Appointment</h1>
               <label>
                 Date:
@@ -101,44 +120,6 @@ class ScheduleAppointment extends React.Component {
               </label>
               <br></br>
               <br></br>
-              <label>
-                  Service:
-                  <br></br>
-                  <input  
-                      type= "text" 
-                      name='service'
-                      onChange={this.onChange}
-                      value={this.state.service}
-                  /> 
-              </label>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <label>
-                  Employee:
-                  <br></br>
-                  <input  
-                      type= "text" 
-                      name='employee'
-                      onChange={this.onChange}
-                      value={this.state.employee}
-                  /> 
-              </label>
-              <br></br>
-              <br></br>
-              <label>
-                  Color:
-                  <br></br>
-                  <input  
-                      type='text' 
-                      name='color'
-                      onChange={this.onChange}
-                      value={this.state.color}
-                  /> 
-              </label>
-              <br></br>
-              <br></br>
               <button onClick={this.createEvent}>Create Event</button>            
               </form>
           </div>
@@ -147,8 +128,8 @@ class ScheduleAppointment extends React.Component {
     }
   }
 
-  ScheduleAppointment.contextType= userContext;
+  EditEventAvailability.contextType= userContext;
 
   
 
-export default withRouter(ScheduleAppointment)
+export default withRouter(EditEventAvailability)
