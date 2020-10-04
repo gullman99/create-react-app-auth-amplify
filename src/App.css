@@ -1,5 +1,6 @@
 html, body, #root {
-  height: 100%
+  height: 100%;
+  font-family: 'Roboto', 'Montserrat', sans-serif;
 }
 
 
@@ -144,7 +145,7 @@ background-color: #ffffff;
 }
 
 .background-image{
-    background-image: url("./img/caregiver_1280_squished.jpg");
+    background-image: url("./img/caregiver-enhanced.jpg");
 /*     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 50% 80%; */

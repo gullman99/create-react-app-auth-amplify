@@ -1,29 +1,48 @@
 import React from 'react';
+
+//Styles
+import { makeStyles } from '@material-ui/styles';
+import { Paper, Typography } from '@material-ui/core';
 import '../../App.css'
-import Header from '../Header'
+
+//Components
 import Login from './Login'
 
+const useStyles = makeStyles(theme => ({
+  paper: {
+    padding: 25,
+    width: 500
+  }
+}));
 
-  const Home = (props) => (
+function Home(props) {
+  const classes = useStyles();
+
+  return (
     <div style={{height: '100%'}}>
-    {/* <Header setUser={props.setUser} />  */}   
       <div class="background-image">
         <div style={{padding: 40}}>
-          <h2>"Mary S. - "My caregiver from St. Lorraine</h2>
-          <h2>helped me recover from my knee surgery through</h2>
-          <h2>personalized workouts and meals.</h2>
-          <h2>She was a wonderful support to me</h2>
-          <h2>and good company during my recovery.</h2>
-          <h2>  Thank you St. Lorraine!"</h2>
-        </div>
+          <Paper className={classes.paper}>
+            <Typography variant="h5" >
+              "My caregiver from St. Lorraine
+              helped me recover from my knee surgery through
+              personalized workouts and meals.
+              She was a wonderful support to me
+              and good company during my recovery.
+              Thank you St. Lorraine!"
+              <br /><br />
+              - Mary S.
+            </Typography>
 
-        <Login setUser={props.setUser}/>
+          </Paper>
+        </div>
+        <div style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
+          <Login setUser={props.setUser}/>
+        </div>
       </div>
     </div>
-  );
+  )
+}
 
-  //Home.contextType= userContext;
-
-
-  export default Home;
+export default Home;
 

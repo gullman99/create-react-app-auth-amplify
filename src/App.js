@@ -120,7 +120,9 @@ class App extends React.Component {
                                     case 'client': return <Account setUser={this.setUser}/>;
                                     case 'admin' : return <Account setUser={this.setUser}/>;
                                     case 'employee' : return <Account setUser={this.setUser}/>;
-                                    default: return <Redirect to="/" />;
+                                    //FOR TESTING
+                                    default: return <Account setUser={this.setUser}/>;
+                                    //default: return <Redirect to="/" />;
                                 }
                             }} />
                             
@@ -143,7 +145,9 @@ class App extends React.Component {
                                 case 'client': return <Appointment setUser={this.setUser}/>;
                                 case 'admin' : return <Appointment setUser={this.setUser}/>;
                                 case 'employee' : return <Appointment setUser={this.setUser}/>;
-                                default: return <Redirect to="/" />;
+                                //FOR TESTING
+                                default: return <Appointment setUser={this.setUser}/>;
+                                //default: return <Redirect to="/" />;
                                 }
                             }} 
                             />
