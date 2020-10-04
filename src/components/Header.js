@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css';
-import { Link } from 'react-router-dom'
+import { Link, withRouter, useLocation } from 'react-router-dom'
 import {
   Menu,
   MenuList,
@@ -42,19 +42,22 @@ class Header extends React.Component{
 
 
   render (){
+    const pathname = this.props.location.pathname;
+    console.log(pathname)
+
     return(
     <div style={{position: 'relative', zIndex: 1}}>
-      <header style={{boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.75)'}}>
+      <header style={{boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)'}}>
         <Grid container justify="center" alignItems="center" style={{padding: 10, paddingLeft: 40, paddingRight: 40}}>
           <Grid item style={{width: 'auto', paddingRight: 20}}>
-            <Button>
+            <Button disabled={pathname === '/'}>
               <Link to="/">
                 <img src="logo-notext.jpeg" alt="logo" width="50" height="50" />
               </Link>
             </Button>
           </Grid>
           <Grid item style={{width: 'auto', padding: 10}}>
-            <Button>
+            <Button disabled={pathname === '/contact'}>
               <Link to="/contact" className={"header-link"}>
                 Contact Us
               </Link>
@@ -217,7 +220,4 @@ class Header extends React.Component{
 
 Header.contextType= userContext;
 
-
-
-
-  export default Header
+export default withRouter(Header)

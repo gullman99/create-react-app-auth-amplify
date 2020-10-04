@@ -102,13 +102,13 @@ class Login extends React.Component {
                 
                 <Grid container spacing={2} style={{marginTop: 15}}>
                   <Grid item style={{width: 'auto'}}>
-                    <Button variant="contained" onClick={this.handleSubmit}>
+                    <Button variant="contained" color="primary" onClick={this.handleSubmit}>
                       Log in
                     </Button>
                   </Grid>
                   <Grid item xs>
                     <Link to="/signup" style={{textDecoration: 'none'}}>
-                      <Button variant="contained">
+                      <Button variant="outlined" color="primary">
                         Sign up
                       </Button>
                     </Link>

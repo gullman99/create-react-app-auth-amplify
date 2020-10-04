@@ -23,10 +23,10 @@ const events = [
 const Account = () => (
     <div>
         <EventCalendar
-      events={events}
-      width={width}
-      initDate={'2017-09-08'}
-    />
+          events={events}
+          width={width}
+          initDate={'2017-09-08'}
+        />
     </div>
 )
 
