@@ -23,6 +23,8 @@ import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { listUsers as ListUsers } from './graphql/queries'
 import { CircularProgress }  from '@material-ui/core'
 
+require('dotenv').config()
+
 //Comment to push
 class App extends React.Component {
   constructor(props) {
