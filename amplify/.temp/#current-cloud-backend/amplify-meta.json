@@ -1,0 +1,65 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-stlorraine-dev-125451-authRole",
+			"UnauthRoleArn": "arn:aws:iam::312236816456:role/amplify-stlorraine-dev-125451-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::312236816456:role/amplify-stlorraine-dev-125451-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "amplify-stlorraine-dev-125451-deployment",
+			"UnauthRoleName": "amplify-stlorraine-dev-125451-unauthRole",
+			"StackName": "amplify-stlorraine-dev-125451",
+			"StackId": "arn:aws:cloudformation:us-east-1:312236816456:stack/amplify-stlorraine-dev-125451/3e0245e0-d032-11ea-8f19-12189cd24959",
+			"AmplifyAppId": "d3uyoff17xcn5w"
+		}
+	},
+	"api": {
+		"UserAPI": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"apiKeyExpirationDays": 365,
+							"description": "some description"
+						}
+					},
+					"additionalAuthenticationProviders": []
+				},
+				"GraphQLAPIIdOutput": "pv5km7istvct7g4yguuyobsde4",
+				"GraphQLAPIEndpointOutput": "https://toeivcjl4jgrzheamgegr5reve.appsync-api.us-east-1.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-5zwngxhonrad3nus5c6yx6cxca"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-stlorraine-dev-125451-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiUserAPI"
+			},
+			"lastPushTimeStamp": "2020-09-02T22:05:15.159Z",
+			"lastPushDirHash": "k52tuiGDO3yF+SoYNuYcfaTtQEs="
+		}
+	},
+	"auth": {
+		"stlorraine8afef93c": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-stlorraine-dev-125451-deployment/amplify-cfn-templates/auth/stlorraine8afef93c-cloudformation-template.yml",
+				"logicalId": "authstlorraine8afef93c"
+			},
+			"lastPushTimeStamp": "2020-09-02T22:05:14.464Z",
+			"output": {
+				"AppClientSecret": "18veohgc3msm45rl8qqf2vq047vnsgh40ksnhqdvjslajpk9ttal",
+				"UserPoolId": "us-east-1_kppdgaGhl",
+				"AppClientIDWeb": "6fbmm2qhnq644ub9btckq19e3",
+				"AppClientID": "7dvsu0gghvtmucc97kv6r1o0nj",
+				"IdentityPoolId": "us-east-1:f1d5832f-5c17-46bf-9958-7349fd0296d4",
+				"IdentityPoolName": "stlorraine8afef93c_identitypool_8afef93c__dev",
+				"UserPoolName": "stlorraine8afef93c_userpool_8afef93c"
+			},
+			"lastPushDirHash": "aE3+Zxm66TeZzK5Dybdhn/LKWpI="
+		}
+	}
+}
