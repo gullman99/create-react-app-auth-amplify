@@ -29,9 +29,9 @@ class Login extends React.Component {
 
   handleEmailChange(event) {    this.setState({email: event.target.value, password: this.state.password});  }
   handlePasswordChange(event){  this.setState({email: this.state.email, password: event.target.value})}
+  
   async handleSubmit(event) {
     event.preventDefault();
-
 
     try {
       const userAuth = await Auth.signIn(this.state.email, this.state.password);
@@ -89,6 +89,7 @@ class Login extends React.Component {
                     value={this.state.email} 
                     onChange={this.handleEmailChange}
                     style={{width: 250}}
+                    onKeyDown={(e) => e.key === 'Enter' && this.handleSubmit(e)}
                   />
                 <br></br>
                   <TextField
@@ -98,6 +99,7 @@ class Login extends React.Component {
                     value={this.state.password} 
                     onChange={this.handlePasswordChange}
                     style={{width: 250, marginTop: 15}}
+                    onKeyDown={(e) => e.key === 'Enter' && this.handleSubmit(e)}
                   />
                 
                 <Grid container spacing={2} style={{marginTop: 15}}>

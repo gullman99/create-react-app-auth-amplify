@@ -9,9 +9,10 @@ import moment from 'moment'
 import { Link, withRouter } from 'react-router-dom'
 import { userContext } from '../../context/UserContext';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import AvailabilityCalendar from './AvailabilityCalendar';
 
 
-class EditEventAvailability extends React.Component {
+class Availability extends React.Component {
     // define some state to hold the data returned from the API
     static contextType = userContext;
 
@@ -45,21 +46,31 @@ class EditEventAvailability extends React.Component {
         //var employeeId = this.context.id;
         event.preventDefault();
         const { employeeId, date, startTime, endTime} = this.state
-        if ( employeeId === ''|| date === '' || startTime === '' || endTime === '' ) return
+
+        if ( employeeId === ''|| date === '' || startTime === '' || endTime === '' )
+            return
+        
         console.log(startTime, endTime, "startTime endTime")
         var eventAvailability = { employeeId: this.context.id, date, startTime, endTime}
-        const dateToIso = moment(eventAvailability.date).toISOString();
-        const startTimeToIso = moment(eventAvailability.startTime, "HH:mm A").toISOString();
-        const endTimeToIso = moment(eventAvailability.endTime, "HH:mm A").toISOString();
-        //const users = [...this.state.users, user]
+        //const dateToIso = moment(eventAvailability.date).toISOString();
+        //const startTimeToIso = moment(eventAvailability.startTime, "HH:mm A").toISOString();
+        //const endTimeToIso = moment(eventAvailability.endTime, "HH:mm A").toISOString();
+
         eventAvailability = {
-            date: dateToIso,
-            startTime: startTimeToIso,
-            endTime: endTimeToIso
+            date: date,
+            startTime: startTime,
+            endTime: endTime,
+            employeeId: employeeId
         }
-        this.setState({
-            employeeId: employeeId,  date: '', startTime: '', endTime: ''
-        })
+
+        //Unncessary to reset
+        /* this.setState({
+            employeeId: employeeId,  
+            date: '', 
+            startTime: '', 
+            endTime: ''
+        }) */
+
         console.log(eventAvailability)
     
         try {
@@ -82,10 +93,13 @@ class EditEventAvailability extends React.Component {
         return (
             <>
             {/* <Header setUser={this.props.setUser}/> */}
-            <div style={{height: '100%', display: 'grid', placeItems: 'center center'}}>
-                <Paper elevation={3} style={{padding: 30, width: 'auto'}}>
+            <div style={{height: '100%'}}>
+
+                <AvailabilityCalendar />
+
+                <Paper elevation={3} style={{width: 400, margin: '0 auto', marginBottom: 40, padding: 30}}>
                     <Typography variant="h4">
-                        Schedule Appointment
+                        Set Availability
                     </Typography>
 
                     <TextField
@@ -128,8 +142,8 @@ class EditEventAvailability extends React.Component {
     }
   }
 
-  EditEventAvailability.contextType= userContext;
+  Availability.contextType= userContext;
 
   
 
-export default withRouter(EditEventAvailability)
+export default withRouter(Availability)

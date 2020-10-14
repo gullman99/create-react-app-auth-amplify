@@ -41,9 +41,9 @@ class MyAccount extends React.Component{
     try {
         EventData1 = await API.graphql(graphqlOperation(ListEvents, {
             filter: {
-            client: {
-                eq: this.context.id
-            }
+                client: {
+                    eq: this.context.id
+                }
             }
         }))
         events1 = EventData1.data.listEvents.items

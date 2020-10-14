@@ -14,8 +14,7 @@ import {
   UserList, 
   Admin, 
   Appointment, 
-  EditEventAvailability, 
-  AvailabilityCalendar, 
+  Availability, 
   EventList, Header
  } from './components/index'
 import { userContext } from './context/UserContext';
@@ -115,60 +114,67 @@ class App extends React.Component {
                             <Route path="/volunteer" component={Volunteer} />
                             <Route path="/search" component={Search} />
                             <Route path="/signup" render={() => <SignUp setUser={this.setUser}/>} />
-                            {//Account page doesn't refresh, so it doesn't need to be changed//
-                            }
+
+                            {/* Account page doesn't refresh, so it doesn't need to be changed */}
                             <Route path="/account" render={() => {
                                 switch(this.state.type){
-                                    case 'client': return <Account setUser={this.setUser}/>;
-                                    case 'admin' : return <Account setUser={this.setUser}/>;
-                                    case 'employee' : return <Account setUser={this.setUser}/>;
-                                    //FOR TESTING
-                                    default: return <Account setUser={this.setUser}/>;
-                                    //default: return <Redirect to="/" />;
+                                    case 'client': 
+                                      return <Account setUser={this.setUser}/>;
+                                    case 'admin' : 
+                                      return <Account setUser={this.setUser}/>;
+                                    case 'employee' : 
+                                      return <Account setUser={this.setUser}/>;
+                                    default: 
+                                      return <Redirect to="/" />;
                                 }
                             }} />
                             
-                            {//<Route path="/userlist" component={UserList} />
-                            }
+                            {/* <Route path="/userlist" component={UserList} /> */}
                             
-                            <Route path="/admin" render={() => this.state.type === 'admin' ?
-                            <Admin setUser={this.setUser}/> : <Redirect to="/" />} />
-                            <Route path="/admin-events" render={() => this.state.type === 'admin' ?
-                            <EventList setUser={this.setUser}/> : <Redirect to="/" />} />
-                            
-                        
-                        
-                            {//<Route path="/admin" render={() => <Admin setUser={this.setUser}/>} />
-                            }
-                            {//Appointment is refreshing causing bugs
-                            }
-                            <Route path="/appointment" render={() => {
-                                switch(this.state.type){
-                                case 'client': return <Appointment setUser={this.setUser}/>;
-                                case 'admin' : return <Appointment setUser={this.setUser}/>;
-                                case 'employee' : return <Appointment setUser={this.setUser}/>;
-                                //FOR TESTING
-                                default: return <Appointment setUser={this.setUser}/>;
-                                //default: return <Redirect to="/" />;
-                                }
-                            }} 
+                            <Route path="/admin"
+                              render={() => this.state.type === 'admin' ?
+                                <Admin setUser={this.setUser}/>
+                              : 
+                                <Redirect to="/" />
+                              } 
                             />
 
-                            {//<Route path="/appointment" render={() => <Appointment setUser={this.setUser}/>} />
-                            }
-                            {//availability is refreshing causing bugs
-                            }
+                            <Route path="/admin-events" 
+                              render={() => this.state.type === 'admin' ?
+                                <EventList setUser={this.setUser}/> 
+                              : 
+                                <Redirect to="/" />
+                              }
+                            />
+
+                            {/* Appointment is refreshing causing bugs */}
+                            <Route path="/appointment" render={() => {
+                                switch(this.state.type){
+                                  case 'client': 
+                                    return <Appointment setUser={this.setUser}/>;
+                                  case 'admin' : 
+                                    return <Appointment setUser={this.setUser}/>;
+                                  case 'employee' : 
+                                    return <Appointment setUser={this.setUser}/>;
+                                  default: 
+                                    return <Redirect to="/" />;
+                                }
+                              }} 
+                            />
+
+                            {/* availability is refreshing causing bugs */}
                             <Route path="/availability" render= {() =>
-                            //() => (this.state.type === 'employee') ?
-                            <EditEventAvailability setUser={this.setUser}/>
-                            // : <Redirect to="/" />}
-                            }/>
-                            <Route path="availability-calendar" render = {() =>
-                            <AvailabilityCalendar setUser={this.setUser} />
-                            } />
+                                <Availability setUser={this.setUser}/>
+
+                                /* () => (this.state.type === 'employee') ?
+                                  <Availability setUser={this.setUser}/>
+                                : 
+                                  <Redirect to="/" /> */
+                              }
+                            />
+
                         </Switch>
                       </div>
-                      
                   </div>
                 }
               </userContext.Provider>
