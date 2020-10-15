@@ -18,8 +18,17 @@ import { userContext } from '../../context/UserContext';
 class SignUpGraphQL extends React.Component {
     // define some state to hold the data returned from the API
     state = {
-        type: '', firstName: '', lastName: '', email: '', password: '', cellphone: '', address:'', users: []
+        type: '', 
+        firstName: '', 
+        lastName: '', 
+        email: '', 
+        password: '', 
+        cellphone: '', 
+        address:'', 
+        users: [], 
+        authCode:  ''
     }
+
     handleSubmit = (event) => {
         this.props.history.push('/Account');
 
@@ -100,18 +109,22 @@ class SignUpGraphQL extends React.Component {
                 onSubmit={(values, { setSubmitting}) =>{
                     setTimeout(() => {
                         setSubmitting(false);
-                        alert(JSON.stringify(values, null, 2));
+                        //alert(JSON.stringify(values, null, 2));
                     }, 500);
 
-                    this.setState(values)
+                    if (this.state.type === 'employee' && this.state.authCode.toUpperCase() !== 'CARING') {
+                        alert("Invalid authorization code")
+                    } else {
+                        this.setState(values)
 
-                    this.setState({
-                        cellphone: this.formatPhoneNumber(this.state.cellphone)
-                    })
-
-                    this.createUser()
-
-                    this.handleSubmit()
+                        this.setState({
+                            cellphone: this.formatPhoneNumber(this.state.cellphone)
+                        })
+     
+                        this.createUser()
+    
+                        this.handleSubmit()
+                    }
                 }}
             >
             {({ values, isSubmitting }) => (
@@ -163,10 +176,23 @@ class SignUpGraphQL extends React.Component {
                         type="password"
                         label="type"
                         value={this.state.type}
+                        onChange={(e) => this.onChange(e)}
                     >
                             <option value={'client'}>Client</option>
                             <option value={'employee'}>Employee</option>
                     </Field>
+                    {this.state.type === 'employee' && (
+                        <div>
+                            <TextField 
+                                style={{width: '300px', height: '50px', marginTop: 15}}
+                                value={this.state.authCode} 
+                                name="authCode"
+                                label="Authorization Code" 
+                                onChange={(e) => this.onChange(e)}
+                            />
+                        </div>
+                    )}
+
                     <br />
                     <Field
                         className="signUpField"
