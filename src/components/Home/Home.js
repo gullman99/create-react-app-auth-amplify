@@ -9,6 +9,9 @@ import '../../App.css'
 import Login from './Login'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    height: '100%',
+  },
   paper: {
     padding: 25,
     width: 500
@@ -19,7 +22,7 @@ function Home(props) {
   const classes = useStyles();
 
   return (
-    <div style={{height: '100%'}}>
+    <div className={classes.root}>
       <div class="background-image">
         <div style={{padding: 40}}>
           <Paper className={classes.paper}>

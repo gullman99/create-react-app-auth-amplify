@@ -21,6 +21,7 @@ import { userContext } from './context/UserContext';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { listUsers as ListUsers } from './graphql/queries'
 import { CircularProgress }  from '@material-ui/core'
+import Footer from './components/Footer';
 
 require('dotenv').config()
 
@@ -174,6 +175,7 @@ class App extends React.Component {
                             />
 
                         </Switch>
+                        <Footer />
                       </div>
                   </div>
                 }

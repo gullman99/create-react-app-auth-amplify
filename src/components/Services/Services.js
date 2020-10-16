@@ -9,7 +9,7 @@ import HomeTherapy from '../../img/home-therapy.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: '100%',
+        height: 'auto',
         width: '100%',
         display: 'grid',
         placeItems: 'center center'

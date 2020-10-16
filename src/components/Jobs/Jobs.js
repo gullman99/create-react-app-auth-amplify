@@ -10,7 +10,7 @@ import Teamwork from '../../img/teamwork.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: '100%',
+        height: 'auto',
         width: '100%',
         display: 'grid',
         placeItems: 'center center'
