@@ -158,9 +158,9 @@ class Header extends React.Component{
                       <MenuLink as="a" href="/appointment">
                       Schedule Appointment
                     </MenuLink>
-                    <MenuLink as="a" href="/careprovider">
+                    {/* <MenuLink as="a" href="/careprovider">
                       Care Provider
-                    </MenuLink>
+                    </MenuLink> */}
                     <MenuLink onClick={this.Logout} as="a" href="/"> 
                       Log Out
                     </MenuLink>
@@ -174,9 +174,9 @@ class Header extends React.Component{
                     <MenuLink as="a" href="/availability">
                     Edit Availibility
                     </MenuLink>
-                    <MenuLink as="a" href="/editbio">
+                    {/* <MenuLink as="a" href="/editbio">
                     Edit Bio
-                    </MenuLink>
+                    </MenuLink> */}
                     <MenuLink onClick={this.Logout} as="a" href="/"> 
                     Log Out
                     </MenuLink> 

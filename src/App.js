@@ -101,7 +101,9 @@ class App extends React.Component {
             <React.Fragment>
               <userContext.Provider value={this.state}>
                 {this.state.loading == true ? 
-                    <CircularProgress />
+                    <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                      <CircularProgress />
+                    </div>
                 :
                   <div style={{height: '100%'}}>
                       <Header />
@@ -173,6 +175,8 @@ class App extends React.Component {
                                   <Redirect to="/" /> */
                               }
                             />
+
+                            <Redirect from='*' to='/' />
 
                         </Switch>
                         <Footer />

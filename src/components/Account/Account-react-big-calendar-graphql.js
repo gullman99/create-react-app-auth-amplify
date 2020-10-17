@@ -14,228 +14,207 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { listEvents as ListEvents } from '../../graphql/queries'
 import { listUsers as ListUsers } from '../../graphql/queries'
 
-import { userContext } from '../../context/UserContext';
-
-
+import { userContext } from '../../context/UserContext'
+import { withStyles, createStyles, Typography, CircularProgress } from '@material-ui/core';
 
 const localizer = momentLocalizer(moment)
 //const localizer = globalizeLocalizer(globalize)
 
 var EventData1;
 var events1 = [];
-var julyFourth = [{
-  title: "Fourth of July",
-  allDay: true,
-  start: new moment("7/4/2020").toDate,
-  end: new moment("7/4/2020").toDate
+var sampleData = [
+    {
+        title: "Fourth of July",
+        allDay: true,
+        start: new moment("7/4/2020").toDate,
+        end: new moment("7/4/2020").toDate
+    }
+];
 
-}];
+const styles = () => createStyles({
+    header: {
+        textAlign: 'center',
+        marginBottom: 30
+    },
+    tableHeader: {
+        fontWeight: 700,
+        backgroundColor: '#eaf6ff',
+        padding: 8,
+        border: 'solid', 
+        borderWidth: 1, 
+        borderColor: 'lightgray' 
+    },
+    tableRow: {
+        padding: 8,
+        border: 'solid', 
+        borderWidth: 1, 
+        borderColor: 'lightgray'    
+    }
+});
 
-class MyAccount extends React.Component{
-  state = {
-    allEvents:[],
-    filteredEvents: []
-  }
+class Account extends React.Component{
+    state = {
+        allEvents:[],
+        filteredEvents: []
+    }
 
-  async  componentDidMount() {
-    try {
-        EventData1 = await API.graphql(graphqlOperation(ListEvents, {
-            filter: {
-                client: {
-                    eq: this.context.id
-                }
-            }
-        }))
-        events1 = EventData1.data.listEvents.items
-        console.log(events1);
-        const allEventData = await API.graphql(graphqlOperation(ListEvents))
-        
-        let eventsForCalendar = []
-        let allEventsForCalendar = []
-
-        for (let i in allEventData.data.listEvents.items) {
-            let givenEvent = allEventData.data.listEvents.items[i]
-            try {
-                var clientFirstName = await API.graphql(graphqlOperation(ListUsers, {
+    async  componentDidMount() {
+        try {
+            this.setState({loading: true})
+            
+            EventData1 = await API.graphql(graphqlOperation(ListEvents, {
                 filter: {
-                    id: {
-                    eq: givenEvent.client
+                    client: {
+                        eq: this.context.id
                     }
                 }
+            }))
+            events1 = EventData1.data.listEvents.items
+            console.log(events1);
+            const allEventData = await API.graphql(graphqlOperation(ListEvents))
+            
+            let eventsForCalendar = []
+            let allEventsForCalendar = []
+
+            for (let i in allEventData.data.listEvents.items) {
+                let givenEvent = allEventData.data.listEvents.items[i]
+                try {
+                    var client = await API.graphql(graphqlOperation(ListUsers, {
+                        filter: {
+                            id: {
+                                eq: givenEvent.client
+                            }
+                        }
+                    }))
+                    console.log(client, i, "client");
+
+                    var employeeResponse = await API.graphql(graphqlOperation(ListUsers, {
+                        filter: {
+                            id: {
+                                eq: givenEvent.employee
+                            }
+                        }
+                    }))
+            
+                    let employee = employeeResponse.data.listUsers.items[0];
+
+                    if (client.data.listUsers.items.length == 1) {
+                        let event = {
+                            title: client.data.listUsers.items[0].firstName + " meeting with " + employee.firstName + " " + employee.lastName, 
+                            start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
+                            end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+                        }
+                        allEventsForCalendar.push(event)
+                    }
+                }
+                catch(error)  {
+                    console.log("failed allEventData query", givenEvent, error)
+                }
+
+            }
+            
+                    
+            for (let i in EventData1.data.listEvents.items) {
+                let givenEvent = EventData1.data.listEvents.items[i]
+
+                var employeeResponse = await API.graphql(graphqlOperation(ListUsers, {
+                    filter: {
+                        id: {
+                            eq: givenEvent.employee
+                        }
+                    }
                 }))
-                console.log(clientFirstName, i, "clientFirstName");
-                if(clientFirstName.data.listUsers.items.length == 1){
+        
+                let employee = employeeResponse.data.listUsers.items[0];
+
                 let event = {
-                    title: clientFirstName.data.listUsers.items[0].firstName + " meeting with " + givenEvent.employee, 
+                    title: this.context.firstName + " meeting with " +  employee.firstName + " " + employee.lastName, 
                     start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
                     end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
                 }
-                allEventsForCalendar.push(event)
-                }
+                eventsForCalendar.push(event)
             }
-            catch(error)  {
-                console.log("failed allEventData query", givenEvent, error)
-            }
+            
+            //console.log('EventData:', EventData)
+            this.setState({
+                allEvents: allEventsForCalendar,
+                filteredEvents: eventsForCalendar
+            })
         }
-        
-                
-        for (let i in EventData1.data.listEvents.items) {
-                let givenEvent = EventData1.data.listEvents.items[i]
-            let event = {
-                title: this.context.firstName + " meeting with " + givenEvent.employee, 
-                start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
-                end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+        catch (err) {
+            console.log('error fetching events...', err)
+        }
+        finally {
+            this.setState({loading: false})
+        }
+    };
+
+    render(){
+        const { classes } = this.props;
+
+        console.log(events1)
+        console.log(this.state.filteredEvents , 'filteredEvents')
+        console.log(this.state.allEvents, 'all Events')
+
+        return (
+            <div  style={{height: '100%', padding: 30}}>
+
+                <Typography variant="h3" className={classes.header}>
+                    Calendar of Appointments
+                </Typography>
+
+                {this.state.loading ?
+                    <div style={{height: 400, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <CircularProgress />
+                    </div>
+                : 
+                    <div>
+                        <Calendar
+                            onSelectEvent={(event, e) => alert(event.title + "\nDate: " + moment(event.start).format('L') + "\nStart time: " + moment(event.start).format('hh:mm a') + "\nEnd time: " + moment(event.end).format('hh:mm a'))}
+                            localizer={localizer}
+                            events={
+                                this.context.type === "admin" && this.state.allEvents.length > 0 ?
+                                    this.state.allEvents
+                                : this.state.filteredEvents.length > 0 ? //User is client or employee
+                                    this.state.filteredEvents
+                                :
+                                    sampleData
+                            }
+                            startAccessor="start"
+                            endAccessor="end"
+                            style={{ height: 500 }}
+                            eventPropGetter={event => ({
+                            style: {
+                                backgroundColor: event.color,
+                            },
+                            })}
+                        />
+                        {this.state.filteredEvents.length > 0 && (
+                            <table style={{marginTop: 40, padding: 20, borderCollapse: 'collapse'}}>
+                                <tr>
+                                    <th className={classes.tableHeader}>Event</th>
+                                    <th className={classes.tableHeader}>Date</th>
+                                    <th className={classes.tableHeader}>Start Time</th>
+                                    <th className={classes.tableHeader}>End Time</th>
+                                </tr>
+                                {this.state.allEvents && this.state.allEvents.length > 0 && this.state.allEvents.map((event, index) => (
+                                    <tr key={index}>
+                                        <td className={classes.tableRow}>{event.title}</td>
+                                        <td className={classes.tableRow}>{moment(event.start).format('L')}</td>
+                                        <td className={classes.tableRow}>{moment(event.start).format('hh:mm a')}</td>
+                                        <td className={classes.tableRow}>{moment(event.end).format('hh:mm a')}</td>
+                                    </tr>
+                                ))} 
+                            </table>
+                        )}
+                    </div>
                 }
-            eventsForCalendar.push(event)
-        }
-        
-        //console.log('EventData:', EventData)
-        this.setState({
-            allEvents: allEventsForCalendar,
-            filteredEvents: eventsForCalendar
-        })
-    } catch (err) {
-        console.log('error fetching events...', err)
+            </div>
+        )
     }
-  };
-
-  render(){
-    console.log(events1)
-    // let sampleEvents = [{
-    //   title: "test", 
-    //   start: moment("8/20/2020" + " " + "5:40 pm").toDate(),
-    //   end: moment("8/20/2020" + " " + "6:40 pm").toDate(),
-    // }]
-    // console.log(sampleEvents, 'sampleEvents')
-    console.log(this.state.filteredEvents , 'filteredEvents')
-    console.log(this.state.allEvents, 'all Events')
-
-    return(
-      <>
-        <div  style={{padding: 30}}>
-            {
-                (this.context.type === "admin" || this.context.type === "employee") ?
-                (this.state.allEvents.length > 0 ?
-                <Calendar
-                    localizer={localizer}
-                    events={this.state.allEvents}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    eventPropGetter={event => ({
-                        style: {
-                        backgroundColor: event.color,
-                        },
-                    })}
-                />  
-            :
-                <Calendar
-                    localizer={localizer}
-                    events={julyFourth}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    eventPropGetter={event => ({
-                    style: {
-                        backgroundColor: event.color,
-                    },
-                    })}
-                />)
-
-            :
-                (this.state.filteredEvents.length > 0 ?
-                <Calendar
-                    localizer={localizer}
-                    events={this.state.filteredEvents}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    eventPropGetter={event => ({
-                    style: {
-                        backgroundColor: event.color,
-                    },
-                    })}
-                />
-            :
-                <Calendar
-                    localizer={localizer}
-                    events={julyFourth}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    eventPropGetter={event => ({
-                        style: {
-                        backgroundColor: event.color,
-                        },
-                    })}
-                />)
-            }
-            {/*<table>
-                <tr>
-                    <th>Client</th>
-                    <th>Employee</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Color</th>
-            </tr>
-            {     
-                events1.length > 0 ? 
-                <tr>
-                <td>{events1[0].client}</td>
-                <td>{events1[0].employee}</td>
-                <td>{events1[0].service}</td>
-                <td>{events1[0].date}</td>
-                <td>{events1[0].startTime}</td>
-                <td>{events1[0].endTime}</td>
-                <td>{events1[0].color}</td>
-                </tr>
-                :
-                null
-            }
-                
-                
-                {
-                    this.state.events.map((event, index) => (
-
-                    <tr key={index}>
-                    <td>{event.client}</td>
-                    <td>{event.employee}</td>
-                    <td>{event.service}</td>
-                    <td>{event.date}</td>
-                    <td>{event.startTime}</td>
-                    <td>{event.endTime}</td>
-                    <td>{event.color}</td>
-                    </tr>
-                ))
-                }  
-    
-            
-            </table>
-            
-            */}
-        </div>
-      </>
-    )
-  }
-
 }
-MyAccount.contextType= userContext;
 
-// const MyCalendar = props => (
-
-
-// )
-
-const Account = (props) => (
-    <>
-        {/* <Header setUser={props.setUser}/> */}
-        {//<MyCalendar />
-        }
-        <MyAccount />
-    </>
-)
+Account.contextType= userContext;
 
 
-export default Account
+export default withStyles(styles)(Account)

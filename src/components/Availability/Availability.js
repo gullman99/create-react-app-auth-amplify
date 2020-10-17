@@ -31,17 +31,11 @@ class Availability extends React.Component {
     }
   
     // execute the query in componentDidMount
-    /*async componentDidMount() {
-      try {
-        const userData = await API.graphql(graphqlOperation(ListUsers))
-        console.log('userData:', userData)
-        this.setState({
-          users: userData.data.listUsers.items
-        })
-      } catch (err) {
-        console.log('error fetching users...', err)
-      }
-    }*/
+    async componentDidMount() {
+        console.log("context", this.context)
+    }
+
+
     createEvent = async(event) => {
         //var employeeId = this.context.id;
         event.preventDefault();
@@ -93,7 +87,7 @@ class Availability extends React.Component {
         return (
             <>
             {/* <Header setUser={this.props.setUser}/> */}
-            <div style={{height: '100%'}}>
+            <div style={{height: 'auto'}}>
 
                 <AvailabilityCalendar />
 

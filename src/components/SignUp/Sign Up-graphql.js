@@ -171,7 +171,7 @@ class SignUpGraphQL extends React.Component {
                     /><br></br>
                     <Field 
                         as="select"
-                        style={{width: '300px', height: '50px', marginTop: 15, padding: 5}}
+                        style={{width: '300px', height: '50px', marginTop: 15, padding: 5, outline: 'none', border: 'none', borderBottom: 'solid', borderBottomWidth: 1}}
                         name="type"
                         type="password"
                         label="type"
@@ -181,7 +181,7 @@ class SignUpGraphQL extends React.Component {
                             <option value={'client'}>Client</option>
                             <option value={'employee'}>Employee</option>
                     </Field>
-                    {this.state.type === 'employee' && (
+                    {this.state.type === 'employee' ?
                         <div>
                             <TextField 
                                 style={{width: '300px', height: '50px', marginTop: 15}}
@@ -191,9 +191,11 @@ class SignUpGraphQL extends React.Component {
                                 onChange={(e) => this.onChange(e)}
                             />
                         </div>
-                    )}
+                    :
+                        <br />  
+                    }
 
-                    <br />
+                    
                     <Field
                         className="signUpField"
                         as={TextField}

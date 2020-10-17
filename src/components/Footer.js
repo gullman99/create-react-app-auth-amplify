@@ -57,8 +57,8 @@ class Footer extends React.Component{
             </Grid>
             <Grid item xs container justify="flex-end" alignItems="flex-end">
               <Typography variant="caption">
-                Copyright © 2020 St. Lorraine's Life Care. All rights reserved | 
-                <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a> | 
+                Copyright © 2020 St. Lorraine's Life Care. All rights reserved&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://en.wikipedia.org/wiki/Terms_of_service" target="_blank">Terms and Conditions</a> 
               </Typography>
             </Grid>
