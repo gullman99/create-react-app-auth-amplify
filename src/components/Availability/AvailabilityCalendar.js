@@ -11,7 +11,7 @@ import events from '../Account/events'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listEventAvailabilitys as ListEventAvailabilitys } from '../../graphql/queries'
+import { listEventAvailabilitys as ListEventAvailabilitys, listEvents as ListEvents, } from '../../graphql/queries'
 import { userContext } from '../../context/UserContext';
 
 const localizer = momentLocalizer(moment)
@@ -44,11 +44,41 @@ class AvailabilityCalendar extends React.Component{
 
             for (let i in events) {
                 let givenEvent = events[i]
-                let event = {
-                    title: this.context.firstName + " " + "Available", 
-                    start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
-                    end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+
+                let eventResponse = await API.graphql(graphqlOperation(ListEvents, {
+                    filter: {
+                        employee: {
+                            eq: givenEvent.employeeId
+                        },
+                        date: {
+                            eq: givenEvent.date
+                        },
+                        startTime: {
+                            eq: givenEvent.startTime
+                        },
+                        endTime: {
+                            eq: givenEvent.endTime
+                        },
+                    }
+                }))
+
+                let bookedEvents = eventResponse.data.listEvents.items
+                let event;
+
+                if (bookedEvents.length === 0)  {
+                    event = {
+                        title: "Available", 
+                        start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
+                        end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+                    }
+                } else {
+                    event = {
+                        title: "Booked (See calendar page for details)", 
+                        start: moment(givenEvent.date + " " + givenEvent.startTime).toDate(),
+                        end: moment(givenEvent.date + " " + givenEvent.endTime).toDate(),
+                    }
                 }
+
 
                 eventsForCalendar.push(event)
             }
@@ -69,7 +99,7 @@ class AvailabilityCalendar extends React.Component{
         return (
             <div style={{padding: 30}}>
                 <Calendar
-                    onSelectEvent={(event, e) => alert("Start time: " + moment(event.start).format('hh:mm a') + "\n" + "End time: " + moment(event.end).format('hh:mm a'))}
+                    onSelectEvent={(event, e) => alert(event.title + "\nStart time: " + moment(event.start).format('hh:mm a') + "\n" + "End time: " + moment(event.end).format('hh:mm a'))}
                     localizer={localizer}
                     events={this.state.eventsForCalendar}
                     startAccessor="start"
