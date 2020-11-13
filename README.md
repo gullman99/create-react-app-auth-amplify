@@ -1,4 +1,4 @@
-# St. Lorraine
+# Special Fitness
 ## This is the official respository for the app. 
 ### "St. Lorraine" repo is deprecated
 
