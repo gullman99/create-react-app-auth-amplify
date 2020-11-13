@@ -142,14 +142,6 @@ class App extends React.Component {
                               } 
                             />
 
-                            <Route path="/admin-events" 
-                              render={() => this.state.type === 'admin' ?
-                                <EventList setUser={this.setUser}/> 
-                              : 
-                                <Redirect to="/" />
-                              }
-                            />
-
                             {/* Appointment is refreshing causing bugs */}
                             <Route path="/appointment" render={() => {
                                 switch(this.state.type){

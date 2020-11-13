@@ -5,6 +5,8 @@ import { Link, withRouter, useLocation } from 'react-router-dom'
 
 import { withStyles, createStyles, Grid, Button, Typography } from '@material-ui/core';
 
+//Assets
+import SpecialFitnessLogo from '../img/special-fitness-logo.png';
 
 const styles = () => createStyles({
   backgroundColor: {
@@ -26,8 +28,8 @@ class Footer extends React.Component{
         <Grid container>
           <Grid item style={{width: 'auto'}} container justify="center" alignItems="center">
             <Button style={{marginRight: 20}}>
-              <Link to="/">
-                <img src="logo-notext.jpeg" alt="logo" width="60" height="60" />
+              <Link to="/" style={{height: 'auto'}}>
+                <img src={SpecialFitnessLogo} alt="logo" width="auto" height="60" />
               </Link>
             </Button>
           </Grid>
@@ -50,14 +52,14 @@ class Footer extends React.Component{
           <Grid item xs container direction="column">
             <Grid item xs container justify="flex-end">
               <Typography variant="body1">
-                <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Employment</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Request Fitness Trainer</a>
+                <a href="/">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/jobs">Employment</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/appointment">Request Fitness Trainer</a>
               </Typography>
             </Grid>
             <Grid item xs container justify="flex-end" alignItems="flex-end">
               <Typography variant="caption">
-                Copyright © 2020 St. Lorraine's Life Care. All rights reserved&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                Copyright © 2020 Special Fitness. All rights reserved&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://en.wikipedia.org/wiki/Terms_of_service" target="_blank">Terms and Conditions</a> 
               </Typography>

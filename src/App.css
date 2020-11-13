@@ -165,9 +165,11 @@ background-color: #ffffff;
 
  /* Dropdown Button */
  .dropbtn {
-  background-color: #3498DB;
+  background-color: black;/* #3498DB;*/
   color: white;
-  padding: 10px;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
   border-radius: 5px;
   font-size: 16px;
   border: none;

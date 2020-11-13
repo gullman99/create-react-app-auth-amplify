@@ -9,7 +9,6 @@ export const getUser = /* GraphQL */ `
       firstName
       lastName
       email
-      password
       cellphone
       address
       createdAt
@@ -30,7 +29,6 @@ export const listUsers = /* GraphQL */ `
         firstName
         lastName
         email
-        password
         cellphone
         address
         createdAt

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
     main: {
         height: '100%',
-        width: 960,
+        width: 1200,
     },
     content: {
         marginTop: 30,
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
     mainImage: {
         width: '100%',
-        height: 400,
+        height:500,
         objectFit: 'cover',
         marginTop: 30,
         marginBottom: 30

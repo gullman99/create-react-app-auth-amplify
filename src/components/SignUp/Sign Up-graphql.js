@@ -18,7 +18,7 @@ import { userContext } from '../../context/UserContext';
 class SignUpGraphQL extends React.Component {
     // define some state to hold the data returned from the API
     state = {
-        type: '', 
+        type: 'client', 
         firstName: '', 
         lastName: '', 
         email: '', 
@@ -27,12 +27,6 @@ class SignUpGraphQL extends React.Component {
         address:'', 
         users: [], 
         authCode:  ''
-    }
-
-    handleSubmit = (event) => {
-        this.props.history.push('/Account');
-
-        event.preventDefault(); //not sure what this does
     }
 
     // execute the query in componentDidMount
@@ -54,6 +48,15 @@ class SignUpGraphQL extends React.Component {
 
     createUser = async() => {
         try {
+            const { type, firstName, lastName, email, password, cellphone, address } = this.state
+
+            //Validate the form
+            if ( type === '' || firstName === '' || lastName === '' || email === '' || password === '' || cellphone === '' || address === '') {
+                console.log("Field empty", type, firstName, lastName, email, password, cellphone, address)
+                alert("Form incomplete. Please check all fields.")
+                return
+            }
+
             const { user } = await Auth.signUp({
                 username: this.state.email,
                 password: this.state.password,
@@ -62,27 +65,24 @@ class SignUpGraphQL extends React.Component {
                 }
             });
 
-            const { type, firstName, lastName, email, password, cellphone, address } = this.state
-
-            if ( type === '' || firstName === '' || lastName === '' || email === '' || password === '' || cellphone === '' || address === '')
-                return
-
-            const dbuser = { type, firstName, lastName, email, password, cellphone, address}
+            // NEVER EVER SAVE A PASSWORD IN A DATABASE
+            // I AM REMOVING PASSWORDS FROM GRAPHQL AND WIPING FROM DATABASE
+            // THIS IS NOT ONLY A SEURITY ISSUE BUT AN INFRINGMENT ON USER RIGHTS
+            const dbuser = { type, firstName, lastName, email, cellphone, address}
             const users = [...this.state.users, dbuser]
 
             try {
-                await API.graphql(graphqlOperation(CreateUser, { input: dbuser }))
-                console.log('item created!')
+                const response = await API.graphql(graphqlOperation(CreateUser, { input: dbuser }))
+                console.log(response)
                 this.props.setUser(dbuser);
                 this.props.history.push('/Account');
             } catch (err) {
                 console.log('error creating user...', err)
-                this.props.history.push('/');
+                alert("Error creating user: ", err)
             }
         } catch (error) {
             console.log('error signing up:', error);
             alert("Oops! Something went wrong: " + error.message)
-            this.props.history.push('/');
         }
     }
 
@@ -102,7 +102,7 @@ class SignUpGraphQL extends React.Component {
                     lastName: "",
                     email: "",
                     password: "",
-                    type: "",
+                    type: "client",
                     cellphone: "",
                     address: ""
                 }}
@@ -123,7 +123,6 @@ class SignUpGraphQL extends React.Component {
      
                         this.createUser()
     
-                        this.handleSubmit()
                     }
                 }}
             >
@@ -173,7 +172,6 @@ class SignUpGraphQL extends React.Component {
                         as="select"
                         style={{width: '300px', height: '50px', marginTop: 15, padding: 5, outline: 'none', border: 'none', borderBottom: 'solid', borderBottomWidth: 1}}
                         name="type"
-                        type="password"
                         label="type"
                         value={this.state.type}
                         onChange={(e) => this.onChange(e)}

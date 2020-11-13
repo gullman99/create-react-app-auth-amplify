@@ -12,7 +12,6 @@ export const createUser = /* GraphQL */ `
       firstName
       lastName
       email
-      password
       cellphone
       address
       createdAt
@@ -31,7 +30,6 @@ export const updateUser = /* GraphQL */ `
       firstName
       lastName
       email
-      password
       cellphone
       address
       createdAt
@@ -50,7 +48,6 @@ export const deleteUser = /* GraphQL */ `
       firstName
       lastName
       email
-      password
       cellphone
       address
       createdAt

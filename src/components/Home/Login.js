@@ -4,7 +4,7 @@ import '../../App.css'
 import { Link, withRouter } from 'react-router-dom'
 import {  API, graphqlOperation, Auth} from 'aws-amplify';
 import { listUsers as ListUsers } from '../../graphql/queries'
-import { Button, Grid, Paper, TextField } from '@material-ui/core';
+import { Button, CircularProgress, Grid, Paper, TextField } from '@material-ui/core';
 
 // async function signIn() {
 //     try {
@@ -24,7 +24,8 @@ class Login extends React.Component {
 
         this.state = {
             email: '', 
-            password: ''
+            password: '',
+            loading: false
         };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -48,6 +49,9 @@ class Login extends React.Component {
   
     async handleSubmit(event) {
         event.preventDefault();
+        this.setState({
+            loading: true
+        })
 
         try {
             const userAuth = await Auth.signIn(this.state.email, this.state.password);
@@ -78,11 +82,16 @@ class Login extends React.Component {
                 this.props.history.push('/Account');
             } catch (err) {
                 console.log('error fetching users...', err)
+                this.setState({
+                    loading: false
+                })
                 alert("Oops! Something went wrong: " + err.message)
             }
         } catch (error) {
             console.log('error signing in', error);
-            this.props.history.push('/');
+            this.setState({
+                loading: false
+            })
             alert("Oops! Something went wrong: " + error.message)
         }
 
@@ -118,20 +127,29 @@ class Login extends React.Component {
                             onKeyDown={(e) => e.key === 'Enter' && this.handleSubmit(e)}
                         />
                         
-                        <Grid container spacing={2} style={{marginTop: 15}}>
-                        <Grid item style={{width: 'auto'}}>
-                            <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-                            Log in
-                            </Button>
-                        </Grid>
-                        <Grid item xs>
-                            <Link to="/signup" style={{textDecoration: 'none'}}>
-                            <Button variant="outlined" color="primary">
-                                Sign up
-                            </Button>
-                            </Link>
-                        </Grid>
-                        </Grid>
+                        {this.state.loading ?
+                            <div>
+                                <br />
+                                <br />
+                                <CircularProgress />
+                            </div>
+                        :
+                            <Grid container spacing={2} style={{marginTop: 15}}>
+                                <Grid item style={{width: 'auto'}}>
+                                    <Button variant="contained" color="primary" onClick={this.handleSubmit}>
+                                    Log in
+                                    </Button>
+                                </Grid>
+                                <Grid item xs>
+                                    <Link to="/signup" style={{textDecoration: 'none'}}>
+                                    <Button variant="outlined" color="primary">
+                                        Sign up
+                                    </Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        }
+                        
                     </Paper>
                 </div>
             </div>

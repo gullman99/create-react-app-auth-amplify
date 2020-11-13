@@ -10,39 +10,33 @@ import {createStore} from 'redux'
 import {userReducer} from './store/Redux'
 import {Provider} from 'react-redux'
 
+//Styles
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core';
+
 Amplify.configure(config)
 
-//const store = createStore(userReducer);
-//import pg from 'pg'
-//import Modal from 'react-modal';
-/* const { Client } = require('pg');
-
-const client = new Client({
-    user: 'master',
-    host: 'stlorrainedb.cumbxkukha4z.us-east-2.rds.amazonaws.com',
-    database: 'mydb',
-    password: 'Va11eyF0rge',
-    port: 5432,
-});
-
-client.connect();
-
-client.end(); */
-
-/*SEQUELIZE POSTGRES
-const Sequelize = require("sequelize");
-
-const sequelize = new Sequelize('mydb', 'master', 'Va11eyF0rge', {
-  host: 'stlorrainedb.cumbxkukha4z.us-east-2.rds.amazonaws.com',
-  dialect: 'postgres'
-});
-*/
+const theme = responsiveFontSizes(createMuiTheme({
+  palette: {
+      primary: {
+          main: "#000000",
+      },
+      secondary: {
+          main: '#11cb5f',
+      },
+      info: {
+          main: '#ffffff',
+      },
+  },
+}));
 
 ReactDOM.render(
 
   <React.StrictMode>
     <BrowserRouter>
+      <ThemeProvider theme={theme}>
         <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
