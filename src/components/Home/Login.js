@@ -4,7 +4,8 @@ import '../../App.css'
 import { Link, withRouter } from 'react-router-dom'
 import {  API, graphqlOperation, Auth} from 'aws-amplify';
 import { listUsers as ListUsers } from '../../graphql/queries'
-import { Button, CircularProgress, Grid, Paper, TextField } from '@material-ui/core';
+import { Button, CircularProgress, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import ForgotPasswordModal from './ForgotPasswordModal';
 
 // async function signIn() {
 //     try {
@@ -25,12 +26,14 @@ class Login extends React.Component {
         this.state = {
             email: '', 
             password: '',
-            loading: false
+            loading: false,
+            visible: false
         };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.forgotPassword = this.forgotPassword.bind(this);
     }
 
     handleEmailChange(event) {    
@@ -102,7 +105,17 @@ class Login extends React.Component {
         //not sure what this does
     }
 
+    forgotPassword(event) {
+        event.preventDefault()
+
+        this.setState({
+            visible: true
+        })
+    }
+
     render() {
+        const { visible, email, password, loading } = this.state;
+
         return (
             <div className="row">
                 <div className="column-8-right">
@@ -111,7 +124,7 @@ class Login extends React.Component {
                             label="Email"
                             variant="outlined" 
                             type="email" 
-                            value={this.state.email} 
+                            value={email} 
                             onChange={this.handleEmailChange}
                             style={{width: 250}}
                             onKeyDown={(e) => e.key === 'Enter' && this.handleSubmit(e)}
@@ -121,13 +134,13 @@ class Login extends React.Component {
                             label="Password"
                             variant="outlined" 
                             type="password" 
-                            value={this.state.password} 
+                            value={password} 
                             onChange={this.handlePasswordChange}
                             style={{width: 250, marginTop: 15}}
                             onKeyDown={(e) => e.key === 'Enter' && this.handleSubmit(e)}
                         />
                         
-                        {this.state.loading ?
+                        {loading ?
                             <div>
                                 <br />
                                 <br />
@@ -149,7 +162,20 @@ class Login extends React.Component {
                                 </Grid>
                             </Grid>
                         }
-                        
+                            <Typography style={{marginTop: 10}}>
+                                <Link href="#" onClick={this.forgotPassword}>
+                                    Forgot password?
+                                </Link>
+                            </Typography>
+
+                        {visible && (
+                            <ForgotPasswordModal
+                                emailAddress={email}
+                                visible={visible} 
+                                handleClose={() => this.setState({visible: false})}
+                            />
+                        )}
+
                     </Paper>
                 </div>
             </div>
