@@ -95,7 +95,7 @@ class SignUpGraphQL extends React.Component {
     render() {
         //const {user} = this.context;
         return (
-        <Paper elevation={3} style={{padding: 30}}>
+        <Paper elevation={3} style={{margin: 30, padding: 30}}>
             <Formik
                 initialValues={{
                     firstName: "",

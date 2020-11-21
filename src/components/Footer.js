@@ -33,7 +33,7 @@ class Footer extends React.Component{
               </Link>
             </Button>
           </Grid>
-          <Grid item style={{width: 300, paddingRight: 40, marginRight: 40, borderRight: 'solid', borderWidth: 1}} container justify="center" alignItems="center">
+          <Grid item style={{width: 280, paddingRight: 30, marginRight: 30, borderRight: 'solid', borderWidth: 1}} container justify="center" alignItems="center">
             <Typography variant="body1">
               Proudly serving southeastern Wisconsin including:
               <br />

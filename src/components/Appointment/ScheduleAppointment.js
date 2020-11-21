@@ -157,7 +157,7 @@ class ScheduleAppointment extends React.Component {
     render() {
         return (
             <div style={{margin: 'auto'}}>
-                <Paper elevation={3} style={{padding: 30}}>
+                <Paper elevation={3} style={{margin: 30, padding: 30}}>
                     <Typography variant="h4">
                     Schedule Appointment
                     </Typography>

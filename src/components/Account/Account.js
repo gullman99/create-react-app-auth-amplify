@@ -198,7 +198,7 @@ class Account extends React.Component{
         console.log(this.state.allEvents, 'all Events')
 
         return (
-            <div  style={{height: '100%', padding: 30}}>
+            <div  style={{minHeight: '100%', padding: 30}}>
 
                 <Typography variant="h3" className={classes.header}>
                     Calendar of Appointments

@@ -10,7 +10,7 @@ import SmilingMedical from '../../img/smiling-medical-stock.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: '100%',
+        minHeight: '100%',
         width: '100%',
         display: 'grid',
         placeItems: 'center center'

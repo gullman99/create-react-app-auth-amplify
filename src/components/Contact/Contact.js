@@ -12,7 +12,7 @@ import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: '100%',
+        minHeight: '100%',
         width: '100%',
         display: 'grid',
         placeItems: 'center center'

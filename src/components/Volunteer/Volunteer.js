@@ -10,7 +10,7 @@ import VolunteerHands from '../../img/volunteer.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: '100%',
+        minHeight: '100%',
         width: '100%',
         display: 'grid',
         placeItems: 'center center'

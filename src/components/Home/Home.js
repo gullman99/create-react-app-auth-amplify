@@ -10,7 +10,7 @@ import Login from './Login'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100%',
+    minHeight: '100%',
   },
   paper: {
     padding: 25,
