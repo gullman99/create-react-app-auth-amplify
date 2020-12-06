@@ -112,10 +112,15 @@ class SignUpGraphQL extends React.Component {
                         //alert(JSON.stringify(values, null, 2));
                     }, 500);
 
+                    let newValues = values;
+                    if (this.state.type === 'employee') {
+                        newValues.type = 'employee'
+                    }
+
                     if (this.state.type === 'employee' && this.state.authCode.toUpperCase() !== 'CARING') {
                         alert("Invalid authorization code")
                     } else {
-                        this.setState(values)
+                        this.setState(newValues)
 
                         this.setState({
                             cellphone: this.formatPhoneNumber(this.state.cellphone)

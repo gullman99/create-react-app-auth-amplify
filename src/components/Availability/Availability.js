@@ -21,8 +21,10 @@ class Availability extends React.Component {
         employeeId: this.context.id, 
         date: moment(Date.now()).format('YYYY-MM-DD'), 
         startTime: '12:00', 
-        endTime: '13:00'
+        endTime: '13:00',
+        reloadEvents: false
     }
+
     handleSubmit = (event) => {
   
         this.props.history.push('/Account');
@@ -40,12 +42,13 @@ class Availability extends React.Component {
         //var employeeId = this.context.id;
         event.preventDefault();
         const { employeeId, date, startTime, endTime} = this.state
-
+        
+        //console.log("The state is", this.state);
         if ( employeeId === ''|| date === '' || startTime === '' || endTime === '' )
             return
         
-        console.log(startTime, endTime, "startTime endTime")
-        var eventAvailability = { employeeId: this.context.id, date, startTime, endTime}
+        //console.log(startTime, endTime, "startTime endTime")
+        var eventAvailability = { employeeId: employeeId, date, startTime, endTime}
         //const dateToIso = moment(eventAvailability.date).toISOString();
         //const startTimeToIso = moment(eventAvailability.startTime, "HH:mm A").toISOString();
         //const endTimeToIso = moment(eventAvailability.endTime, "HH:mm A").toISOString();
@@ -68,10 +71,12 @@ class Availability extends React.Component {
         console.log(eventAvailability)
     
         try {
-
             await API.graphql(graphqlOperation(CreateEventAvailability, { input: eventAvailability }))
             console.log('item created!')
-
+            this.setState({
+                reloadEvents: !this.state.reloadEvents
+            })
+            alert("Availability set!")
         } catch (err) {
             console.log('error creating event...', err)
         }
@@ -89,9 +94,7 @@ class Availability extends React.Component {
             {/* <Header setUser={this.props.setUser}/> */}
             <div style={{height: 'auto'}}>
 
-                <AvailabilityCalendar />
-
-                <Paper elevation={3} style={{width: 400, margin: '0 auto', marginBottom: 40, padding: 30}}>
+                <Paper elevation={3} style={{width: 400, margin: '0 auto', marginTop: 40, marginBottom: 40, padding: 30}}>
                     <Typography variant="h4">
                         Set Availability
                     </Typography>
@@ -130,6 +133,9 @@ class Availability extends React.Component {
                         Create Event
                     </Button>            
                 </Paper>
+
+                <AvailabilityCalendar  reloadEvents={this.state.reloadEvents} />
+
             </div>
             </>
         )
