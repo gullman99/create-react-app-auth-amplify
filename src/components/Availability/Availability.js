@@ -90,9 +90,7 @@ class Availability extends React.Component {
     }
     render() {
         return (
-            <>
-            {/* <Header setUser={this.props.setUser}/> */}
-            <div style={{height: 'auto'}}>
+            <div style={{minHeight: 'auto'}}>
 
                 <Paper elevation={3} style={{width: 400, margin: '0 auto', marginTop: 40, marginBottom: 40, padding: 30}}>
                     <Typography variant="h4">
@@ -137,7 +135,6 @@ class Availability extends React.Component {
                 <AvailabilityCalendar  reloadEvents={this.state.reloadEvents} />
 
             </div>
-            </>
         )
     }
   }
