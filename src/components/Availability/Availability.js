@@ -90,7 +90,7 @@ class Availability extends React.Component {
     }
     render() {
         return (
-            <div style={{minHeight: 'auto'}}>
+            <div style={{minHeight: '100%'}}>
 
                 <Paper elevation={3} style={{width: 400, margin: '0 auto', marginTop: 40, marginBottom: 40, padding: 30}}>
                     <Typography variant="h4">
